@@ -8,6 +8,6 @@ Sarcina acestui modul este de a compune o serie de intrebari pe baza unei ontolo
 -  Enuntul intrebarii
 -  Scorul sau dificultatea intrebarii ( va fi calculat cu ajutorul distantei Levenstein)
 -  Domeniul din care face parte
--> Toate variantele de raspuns , implicit raspunsurile corecte
+-  Toate variantele de raspuns , implicit raspunsurile corecte
 
 
