@@ -1,0 +1,15 @@
+1st Meeting (6 dec 2017):
+  - Ne-am impartit in 3 subgrupe cu urmatoarele task-uri:
+      * research pentru a vedea cum ne va ajuta API-ul de la DEX online pentru genul substantivelor
+      * generarea efectiva a intrebarilor 
+      * functia de scor pentru dificultatea unei probleme
+  - Fiecare coleg a primit macar un task
+      
+2nd Meeting (11 dec 2017):
+  - Am stabilit tipul intrebarilor: True/False, Fill in the blank(s), Multiple Choice si Matching 
+  - Vor fi 3 tipuri de dificultati: Easy, Medium si Hard
+  - Am reorganizat subgrupele si modul in care vom lucra
+  - Fiecare subgrupa va face cate un tip de intrebare si isi va calcula singura functia de scor
+  - Astfel avem o oarecare independenta a subgrupelor
+  - Am stabilit cum va arata baza de date si fisierele JSON pe baza carora vom face intrebarile
+  - A mai ramas problema determinarii genului, in vederea articularii substantivelor si conjugarii verbelor
