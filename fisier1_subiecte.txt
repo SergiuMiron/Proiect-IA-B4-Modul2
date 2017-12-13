@@ -1,0 +1,1051 @@
+[
+    {
+        "id": 12,
+        "nume": "Cutia craniana",
+        "noduri_legate": [13],
+        "arc_nod": ["contine"],
+        "domeniu": "Cutia craniana",
+        "sinonime": ["Craniu"],
+	"e_concept": "True",
+	"definitie": "Este o structura osoasa care contine si protejeaza encefalul"
+    },
+    {
+        "id": 13,
+        "nume": "Spatiu intracranian",
+        "noduri_legate": [21,22,23],
+        "arc_nod": ["contine","contine","contine"],
+        "domeniu": "Cutia craniana",
+        "sinonime": [],
+	"e_concept": "True",
+	"definitie": "Nu gasesc definitia pe wiki"
+    },
+    {
+        "id": 21,
+        "nume": "L.C.R.",
+        "noduri_legate": [],
+        "arc_nod": [],
+        "domeniu": "Cutia craniana",
+        "sinonime": ["Lichid cerebrospinal"],
+	"e_concept": "True",
+	"definitie": "Este un lichid clar si transparent care umple sistemul ventricular cerebral"
+    },
+    {
+        "id": 22,
+        "nume": "Sange",
+        "noduri_legate": [31,32],
+        "arc_nod": ["de_tip", "de_tip"],
+        "domeniu": "Cutia craniana",
+        "sinonime": [],
+	"e_concept": "True",
+	"definitie": "Este o substanta lichida de culoare rosie, compusa din plasma si din globule"
+    },
+    {
+        "id": 23,
+        "nume": "Creier",
+        "noduri_legate": [41, 42],
+        "arc_nod": ["Glie", "Glanda epifiza"],
+        "domeniu": "Cutia craniana",
+        "sinonime": ["Encefal"],
+	"e_concept": "True",
+	"definitie": "Partea cea mai importanta a sistemului nervos central la vertebrate, organ al gandirii si al constiintei umane"
+    },
+    {
+        "id": 31,
+        "nume": "Arterial",
+        "noduri_legate": [],
+        "arc_nod": [],
+        "domeniu": "Cutia craniana",
+        "sinonime": [],
+	"e_concept": "True",
+	"definitie": "Ceva pe acolo"
+    },
+    {
+        "id": 32,
+        "nume": "Venos",
+        "noduri_legate": [],
+        "arc_nod": [],
+        "domeniu": "Cutia craniana",
+        "sinonime": [],
+	"e_concept": "True",
+	"definitie": "Ceva pe acolo"
+    },
+    {
+        "id": 41,
+        "nume": "Glanda epifiza",
+        "noduri_legate": [],
+        "arc_nod": [],
+        "domeniu": "Cutia craniana",
+        "sinonime": ["Glanda pineala"],
+	"e_concept": "True",
+	"definitie": "Este responsabila pentru secretia unor hormoni"
+    },
+    {
+        "id": 42,
+        "nume": "Neuroni",
+        "noduri_legate": [],
+        "arc_nod": [],
+        "domeniu": "Cutia craniana",
+        "sinonime": ["Neurocit"],
+	"e_concept": "True",
+	"definitie": "Element structural si functional de baza al sistemului nervos"
+    },
+    {
+		"id": 100,
+		"nume": "Urechea",
+		"noduri_legate": [200,300,400],
+		"arc_nod": ["contine","contine","contine"],
+		"domeniu": "Urechea",
+		"sinonime": ["analizatorul auditiv"],
+		"e_concept": "True",
+		"definitie": "Este un organ folosit de un animal sau om pentru a detecta sunete."
+	},
+	
+	{
+		"id": 200,
+		"nume": "Urechea externa",
+		"noduri_legate": [500],
+		"arc_nod": ["contine"],
+		"domeniu": "Urechea",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Este partea vizibila a urechii."
+	},
+	
+	{
+		"id": 500,
+		"nume": "Pavilion",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Urechea",
+		"sinonime": ["conca auriculara"],
+		"e_concept": "True",
+		"definitie": "Este partea vizibila a urechii externe"
+	},
+	
+	{
+		"id": 300,
+		"nume": "Urechea medie",
+		"noduri_legate": [600,700,800],
+		"arc_nod": ["delimitata de", "contine", "contine"],
+		"domeniu": "Urechea",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Este partea mijlocie a urechii."
+	},
+	
+	{
+		"id": 400,
+		"nume": "Urechea interna",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Urechea",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Este partea interna a urechii."
+	},
+	
+	{
+		"id": 600,
+		"nume": "Membrana timpanica",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Urechea",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Este o membrana fibroasa, transparenta, care separa conductul auditiv extrem, de casuta timpanului."
+	},
+	
+	{
+		"id": 700,
+		"nume": "Oscioare",
+		"noduri_legate": [900,1000,1100],
+		"arc_nod": ["contine", "contine", "contine"],
+		"domeniu": "Urechea",
+		"sinonime": ["osicule"],
+		"e_concept": "True",
+		"definitie": "Reprezinta un lant de trei oase mici localizate in urechea medie, fiind printre cele mai mici oase alte corpului uman. "
+	},
+	
+	{
+		"id": 800,
+		"nume": "Fereastra ovala",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Urechea",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Este o zona intermediara a urechii."
+	},
+	
+	{
+		"id": 900,
+		"nume": "Ciocan",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Urechea",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Este primul unul din cele trei oscioare ale urechii."
+	},
+	
+	{
+		"id": 1000,
+		"nume": "Nicovala",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Urechea",
+		"sinonime": ["incus"],
+		"e_concept": "True",
+		"definitie": "Este al doilea din cele trei oscioare ale urechii."
+	},
+	
+	{
+		"id": 1100,
+		"nume": "Scarita",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Urechea",
+		"sinonime": ["stapes"],
+		"e_concept": "True",
+		"definitie": "Este al treilea din cele trei oscioare ale urechii."
+	},
+	{
+        "id": 101,
+        "nume": "Inima",
+        "noduri_legate": [111,121,131],
+        "arc_nod": ["de_tip", "de_tip","de_tip"],
+        "domeniu": "Inima",
+        "sinonime": ["Cord"],
+		"e_concept": "True",
+		"definitie": "Organ intern musculos central al aparatului circulator, situat in partea stanga a toracelui, care are rolul de a asigura, prin contractiile sale ritmice, circulatia sangelui in organism, la om si la animalele superioare; cord"
+    },
+    {
+        "id": 111,
+        "nume": "Bicamerale",
+        "noduri_legate": [],
+        "arc_nod": [],
+        "domeniu": "Inima",
+        "sinonime": [],
+		"e_concept": "True",
+		"definitie": "Inimile pestilor sunt bicamerale: un atriu si un ventricul. La pesti, sistemul este format dintr-un singur circuit. Sangele trece prin branhii, apoi in organism, iar apoi ajunge la inima. Inima este unicul muschi care se contracta ritmic, pe tot parcursul vietii."
+    },
+    {
+        "id": 121,
+        "nume": "Tricamerale",
+        "noduri_legate": [],
+        "arc_nod": [],
+        "domeniu": "Inima",
+        "sinonime": [],
+		"e_concept": "True",
+		"definitie": "Amfibienii si reptilele (exceptand crocodilii) au inima tricamerala, in care sangele oxigenat de la plamani si cel neoxigenat din organism intra prin atrii separate"
+    },
+    {
+        "id": 131,
+        "nume": "Tetracamerale",
+        "noduri_legate": [141,151],
+        "arc_nod": ["format_din", "format_din"],
+        "domeniu": "Inima",
+        "sinonime": [],
+		"e_concept": "True",
+		"definitie": "Crocodilii, pasarile si mamiferele detin inimi cu patru camere complet separate. Exista astfel doua „pompe”, una pentru atrii si una pentru ventricule. Se considera ca inima tetracamerala a pasarilor a evoluat independent de cea a mamiferelor."
+    },
+    {
+        "id": 141,
+        "nume": "Atriu",
+        "noduri_legate": [161,171],
+        "arc_nod": ["de_tip", "de_tip"],
+        "domeniu": "Inima",
+        "sinonime": ["Auricul"],
+		"e_concept": "True",
+		"definitie": "Fiecare din cele doua despartituri superioare ale inimii"
+    },
+    {
+        "id": 151,
+        "nume": "Ventricul",
+        "noduri_legate": [181,191],
+        "arc_nod": ["de_tip", "de_tip"],
+        "domeniu": "Inima",
+        "sinonime": ["Talam"],
+		"e_concept": "True",
+		"definitie": "Fiecare dintre cele doua despartituri de jos ale inimii."
+    },
+    {
+        "id": 161,
+        "nume": "Atriu_Stang",
+        "noduri_legate": [],
+        "arc_nod": [],
+        "domeniu": "Inima",
+        "sinonime": [],
+	"e_concept": "True",
+	"definitie": "Cavitatea superioara stanga a inimii"
+    },
+    {
+        "id": 171,
+        "nume": "Atriu_Drept",
+        "noduri_legate": [],
+        "arc_nod": [],
+        "domeniu": "Inima",
+        "sinonime": [],
+	"e_concept": "True",
+	"definitie": "Cavitatea superioara dreapta a inimii"
+    },
+    {
+        "id": 181,
+        "nume": "Ventricul_Stang",
+        "noduri_legate": [],
+        "arc_nod": [],
+        "domeniu": "Inima",
+        "sinonime": [],
+	"e_concept": "True",
+	"definitie": "Cavitatea inferioara stanga a inimii"
+    },
+    {
+        "id": 191,
+        "nume": "Ventricul_Drept",
+        "noduri_legate": [],
+        "arc_nod": [],
+        "domeniu": "Inima",
+        "sinonime": [],
+	"e_concept": "True",
+	"definitie": "Cavitatea inferioara dreapta a inimii"
+    },
+    {
+        "id": 102,
+        "nume": "Schelet",
+        "noduri_legate": [112, 132],
+        "arc_nod": ["de_tip", "de_tip"],
+        "domeniu": "Schelet",
+        "sinonime": [],
+	"e_concept": "True",
+	"definitie": "Scheletul este o parte a corpului care are rolul de suport sau sprijin a unui organism."
+    },
+    {
+        "id": 112,
+        "nume": "Endoschelet",
+        "noduri_legate": [122, 152],
+        "arc_nod": ["de_tip", "de_tip"],
+        "domeniu": "Schelet",
+        "sinonime": ["Schelet intern"],
+	"e_concept": "True",
+	"definitie": ""
+    },
+    {
+        "id": 122,
+        "nume": "Citoschelet",
+        "noduri_legate": [],
+        "arc_nod": [],
+        "domeniu": "Schelet",
+        "sinonime": [],
+	"e_concept": "True",
+	"definitie": "Citoscheletul este scheletul unei celule, care asigură, stabilizarea și menținerea formei unei celule, motilitatea celulară, transportul a diferite substanțe în interiorul celulei, precum și comunicarea cu alte celulule."
+    },
+    {
+        "id": 132,
+        "nume": "Exoschelet",
+        "noduri_legate": [],
+        "arc_nod": [],
+        "domeniu": "Schelet",
+        "sinonime": ["Schelet extern"],
+	"e_concept": "True",
+	"definitie": ""
+    },
+    {
+        "id": 142,
+        "nume": "Hidroschelet",
+        "noduri_legate": [],
+        "arc_nod": [],
+        "domeniu": "Schelet",
+        "sinonime": [],
+	"e_concept": "True",
+	"definitie": "Acesta fiind un înveliș fluid și care se află ca apa într-un furtun, sub stratul muscular al pielii presând din afară organele interne, creând o stabilitate relativă a corpului."
+    },
+    {
+        "id": 152,
+        "nume": "Schelet vertebrat",
+        "noduri_legate": [162,172,182,192,202],
+        "arc_nod": ["contine", "contine", "format_din", "format_din", "de_tip"],
+        "domeniu": "Schelet",
+        "sinonime": [],
+	"e_concept": "True",
+	"definitie": ""
+    },
+    {
+        "id": 162,
+        "nume": "Schelet axial",
+        "noduri_legate": [],
+        "arc_nod": [],
+        "domeniu": "Schelet",
+        "sinonime": [],
+	"e_concept": "True",
+	"definitie": ""
+    },
+    {
+        "id": 172,
+        "nume": "Schelet al extremitatilor",
+        "noduri_legate": [],
+        "arc_nod": [],
+        "domeniu": "Schelet",
+        "sinonime": [],
+	"e_concept": "True",
+	"definitie": ""
+    },
+    {
+        "id": 182,
+        "nume": "Oase",
+        "noduri_legate": [],
+        "arc_nod": [],
+        "domeniu": "Schelet",
+        "sinonime": [],
+	"e_concept": "True",
+	"definitie": ""
+    },
+    {
+        "id": 192,
+        "nume": "Cartilagii",
+        "noduri_legate": [],
+        "arc_nod": [],
+        "domeniu": "Schelet",
+        "sinonime": [],
+	"e_concept": "True",
+	"definitie": ""
+    },
+    {
+        "id": 202,
+        "nume": "Schelet uman",
+        "noduri_legate": ["difera_prin","difera_prin"],
+        "arc_nod": [162,172],
+        "domeniu": "Schelet",
+        "sinonime": [],
+	"e_concept": "True",
+	"definitie": ""
+    },
+    {
+		"id": 24,
+		"nume": "inimă",
+		"noduri_legate": [34,44,54,64,74,84,94,104,134,144,154,164],
+		"arc_nod": ["prezintă", "prezintă", "prezintă", "prezintă", "prezintă", "prezintă", "prezintă", "prezintă", "alcătuit din", "alcătuit din", "alcătuit din", "alcătuit din"],
+		"domeniu": "Circulația sângelui",
+		"sinonime": ["cord"],
+		"e_concept": "True",
+		"definitie": "Inima este unul dintre cele mai importante organe ale corpului uman şi funcţionează asemenea unei pompe musculare ce distribuie sângele în întreg organismul. "
+	},
+	
+	{
+		"id": 34,
+		"nume": "margine posterioară",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Marginea posterioară nu este bine evidențiată."
+	},
+	
+	{
+		"id": 44,
+		"nume": "margine deaptă",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Marginea dreaptă este în raport direct cu pleura şi cu faţa medială a plămânului drept. "
+	},
+	
+	{
+		"id": 54,
+		"nume": "margine anterioară",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Marginea anterioară nu este bine evidențiată."
+	},
+	
+	{
+		"id": 64,
+		"nume": "față sternocostală",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Faţa sternocostală intră în raport cu sternul şi coastele, iar la acest nivel se pot identifica atriile (în porţiunea superioară) şi ventriculii (în porţiunea inferioară)."
+	},
+	
+	{
+		"id": 74,
+		"nume": "față diafragmatică",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Faţa diafragmatică sau inferioară este aproape orizontală şi este reprezentată preponderent de către ventriculul stâng, ventriculul drept reprezentând doar o porţiune foarte mică."
+	},
+	
+	{
+		"id": 84,
+		"nume": "față pulmonară",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Faţa pulmonară este orientată spre posterior şi la stânga şi este reprezentată preponderent de o porţiune din ventriculul stâng."
+	},
+	
+	{
+		"id": 94,
+		"nume": "vârf",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Vârful inimii este reprezentat de vârful ventriculului stâng şi este orientat în jos, înainte şi la stânga şi poate fi identificat la nivelul spaţiului V intercostal stâng, pe linia medioclaviculară."
+	},
+	
+	{
+		"id": 104,
+		"nume": "bază",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Faţa pulmonară este orientată spre posterior şi la stânga şi este reprezentată preponderent de o porţiune din ventriculul stâng."
+	},
+	
+	{
+		"id": 134,
+		"nume": "atriu drept",
+		"noduri_legate": [174,184,194,204,214,224],
+		"arc_nod": ["prezintă", "prezintă", "prezintă", "prezintă", "prezintă", "prezintă"],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Are forma unui cub ce prezintă spre anterior o prelungire reprezentată de auriculul drept."
+	},
+	
+	{
+		"id": 144,
+		"nume": "atriu stâng",
+		"noduri_legate": [274,284,294,304,314,544],
+		"arc_nod": ["prezintă", "prezintă", "prezintă", "prezintă", "prezintă", "prezintă"],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Are forma unui cub, prezentând un perete lateral, un perete medial, un perete superior şi un perete inferior. "
+	},
+	
+	{
+		"id": 154,
+		"nume": "ventricul stâng",
+		"noduri_legate": [354,364,374,384,394],
+		"arc_nod": ["prezintă", "prezintă", "prezintă", "prezintă", "prezintă"],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Este cavitatea cordului ce prezintă cele mai mari dimensiuni, având aspectul unui con. Prezintă un perete lateral, un perete medial, două margini, o bază şi un vârf."
+	},
+	
+	{
+		"id": 164,
+		"nume": "ventricul drept",
+		"noduri_legate": [434,444,454,464,474],
+		"arc_nod": ["prezintă", "prezintă", "prezintă", "prezintă", "prezintă"],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Se prezintă sub forma unei piramide triunghiulare, având trei pereţi, o bază şi un vârf."
+	},
+	
+	{
+		"id": 174,
+		"nume": "perete lateral",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Peretele lateral are aspect neregulat şi la acest nivel se pot identifica muşchii pectinaţi ai atriului drept."
+	},
+	
+	{
+		"id": 184,
+		"nume": "perete medial",
+		"noduri_legate": [244, 254],
+		"arc_nod": ["alcătuit din", "prezintă"],
+		"domeniu": "Circulația sângelui",
+		"sinonime": ["perete septal"],
+		"e_concept": "True",
+		"definitie": "Peretele medial sau septal este alcătuit din septul interatrial (septul ce separă cele două atrii). Acesta prezintă în porţiunea centrală fosa ovală."
+	},
+	
+	{
+		"id": 194,
+		"nume": "perete superior",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Peretele superior prezintă două orificii şi anume: orificiul de vărsare a venei cave superioare şi orificiul de intrare în auricul. "
+	},
+	
+	{
+		"id": 204,
+		"nume": "perete inferior",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "La nivelul peretelui inferior se pot identifica: orificiul de vărsare a venei cave inferioare, anteromedial - orificiul sinusului venos coronar și banda sinusală."
+	},
+	
+	{
+		"id": 214,
+		"nume": "perete posterior",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Peretele posterior prezintă o proeminenţă ce poartă denumirea de creasta terminală, aceasta fiind localizată la dreapta faţă de orificiile celor două vene cave."
+	},
+	
+	{
+		"id": 224,
+		"nume": "perete anterior",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sangelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Peretele anterior este reprezentat de orificiul atrioventricular drept împreună cu valva tricuspidă ce este alcătuită din trei cuspe şi anume: anterioară, posterioară şi septală."
+	},
+	
+	{
+		"id": 244,
+		"nume": "sept interatrial",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Septul ce separă cele două atrii."
+	},
+	
+	{
+		"id": 254,
+		"nume": "fosa ovală",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "O depresiune ce corespunde canalului interatrial a lui Bottalo din timpul vieţii intrauterine."
+	},
+	
+	{
+		"id": 274,
+		"nume": "perete lateral",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Peretele lateral se continuă prin intermediul orificiului auricului stâng cu cavitatea acestuia."
+	},
+	
+	{
+		"id": 284,
+		"nume": "perete medial",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": ["perete septal"],
+		"e_concept": "True",
+		"definitie": "Peretele medial sau septal este reprezentat de septul interatrial."
+	},
+	
+	{
+		"id": 294,
+		"nume": "perete posterior",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Peretele posterior prezintă cele 4 orificii ale venelor pulmonare: două drepte şi două stângi."
+	},
+	
+	{
+		"id": 304,
+		"nume": "perete inferior",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Peretele inferior nu prezintă elemente anatomice importante."
+	},
+	
+	{
+		"id": 314,
+		"nume": "perete anterior",
+		"noduri_legate": [334],
+		"arc_nod": ["contine"],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Peretele anterior conţine orificiul atrioventricular stâng."
+	},
+	
+	{
+		"id": 334,
+		"nume": "orificiul atrioventricular stâng",
+		"noduri_legate": [344],
+		"arc_nod": ["prezintă"],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Orificiul atrioventricular stâng prezintă valva bicuspidă sau mitrală."
+	},
+	
+	{
+		"id": 344,
+		"nume": "valva bicuspidă",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": ["valva mitrală"],
+		"e_concept": "True",
+		"definitie": "Valva bicuspidă este alcătuită din două cuspe: una anterioară mai voluminoasă şi una posterioară cu dimensiuni mai reduse."
+	},
+	
+	{
+		"id": 354,
+		"nume": "perete lateral",
+		"noduri_legate": [404],
+		"arc_nod": ["prezintă"],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Peretele lateral prezintă numeroase trabecule de ordin II şi III."
+	},
+	
+	{
+		"id": 364,
+		"nume": "perete medial",
+		"noduri_legate": [404],
+		"arc_nod": ["prezintă"],
+		"domeniu": "Circulația sângelui",
+		"sinonime": ["perete septal"],
+		"e_concept": "True",
+		"definitie": "Peretele medial sau septal este reprezentat de septul interventricular şi prezintă trabecule cărnoase."
+	},
+	
+	{
+		"id": 374,
+		"nume": "margine anterioară",
+		"noduri_legate": [414],
+		"arc_nod": ["prezintă"],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "La nivelul marginii anterioare se poate identifica muşchiul papilar anterior ce trimite cordaje către cele două cuspe ale mitralei."
+	},
+	
+	{
+		"id": 384,
+		"nume": "vârf",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Vârful ventriculului stâng coincide cu vârful inimii şi prezintă trabecule cărnoase de ordin II şi III."
+	},
+	
+	{
+		"id": 394,
+		"nume": "bază",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Baza ventriculului stâng conţine două orificii:orificiul atrioventricular stâng şi orificiul aortei."
+	},
+	
+	{
+		"id": 414,
+		"nume": "mușchi papilar anterior",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "De la muşchiul papilar anterior se extind cordaje către cuspele anterioară, respectiv posterioară a tricuspidei, dar şi trabecule de ordin II şi III."
+	},
+	
+	{
+		"id": 434,
+		"nume": "bază",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Baza ventriculului drept prezintă două orificii şi anume: orificiul atrioventricular drept şi orificiul trunchiului arterei pulmonare."
+	},
+	
+	{
+		"id": 444,
+		"nume": "vârf",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Vârful ventriculului drept este localizat în apropierea vârfului inimii, doar la un cm mai sus şi mai la drepata faţa de acesta."
+	},
+	
+	{
+		"id": 454,
+		"nume": "perete medial",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": ["perete septal"],
+		"e_concept": "True",
+		"definitie": "Peretele medial sau septal este reprezentat de septul interventricular (septul ce separă cei doi ventriculi)."
+	},
+	
+	{
+		"id": 464,
+		"nume": "perete posterior",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Peretele posterior este neregulat, prezentând trabecule cărnoase de ordin II şi III şi unul singur de ordin I reprezentat de muşchiul papilar posterior cele trimite către cuspele posterioară şi septală a valvei tricuspide."
+	},
+	
+	{
+		"id": 474,
+		"nume": "perete anterior",
+		"noduri_legate": [414],
+		"arc_nod": ["prezintă"],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Peretele anterior este neregulat, prezentând numeroase trabecule cărnoase: de ordin I reprezentate de muşchiul papilar anterior de la care se extind cordaje către cuspele anterioară, respectiv posterioară a tricuspidei, dar şi trabecule de ordin II şi III."
+	},
+	
+	{
+		"id": 544,
+		"nume": "perete superior",
+		"noduri_legate": [],
+		"arc_nod": [],
+		"domeniu": "Circulația sângelui",
+		"sinonime": [],
+		"e_concept": "True",
+		"definitie": "Peretele superior nu prezintă elemente anatomice importante."
+	},
+	 {
+	    "id":27,
+	    "nume": "Maduva spinarii",
+	    "noduri_legate": [37,97],
+	    "arc_nod": ["alcatuita din","alcatuita din"],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": [],
+	    "e_concept": "True",
+	    "definitie": "Parte a sistemului nervos central aflata in interiorul coloanei vertebrale, care coordoneaza reflexele neconditionate somatice si vegetative medulare"
+   },
+   {
+	    "id":37,
+	    "nume": "Substanta cenusie",
+	    "noduri_legate": [47,57,67],
+	    "arc_nod": ["alcatuita din","alcatuita din","alcatuita din"],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": [],
+	    "e_concept": "True",
+	    "definitie": "Tesut nervos cu aspect cenusiu, care face parte din sistemul nervos central"
+   },
+   {
+	    "id": 47,
+	    "nume": "Coarne anterioare medulare",
+	    "noduri_legate": [],
+	    "arc_nod": [],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": [],
+	    "e_concept": "True",
+	    "definitie": ""
+   },
+   {
+	    "id": 57,
+	    "nume": "Coarne posterioare medulare",
+	    "noduri_legate": [],
+	    "arc_nod": [],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": [],
+	    "e_concept": "True",
+	    "definitie": ""
+   },
+   {
+	    "id": 67,
+	    "nume": "Coarne laterale medulare",
+	    "noduri_legate": [77,87],
+	    "arc_nod": ["contin", "contin"],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": [],
+	    "e_concept": "True",
+	    "definitie": ""
+   },
+   {
+	    "id": 77,
+	    "nume": "Nucleul intermediolateral",
+	    "noduri_legate": [],
+	    "arc_nod": [],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": [],
+	    "e_concept": "True",
+	    "definitie": "Este o regiune de materie cenusie gasita intr-una din cele trei coloane gri ale maduvei spinarii, coloana gri laterala"
+   },
+   {
+	    "id": 87,
+	    "nume": "Nucleul intermediomedial",
+	    "noduri_legate": [],
+	    "arc_nod": [],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": [],
+	    "e_concept": "True",
+	    "definitie": "Este o regiune de materie cenusie gasita intr-una din cele trei coloane gri ale maduvei spinarii, coloana gri laterala"
+   },
+   {
+	    "id": 97,
+	    "nume": "Substanta alba",
+	    "noduri_legate": [107],
+	    "arc_nod": ["formata din"],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": [],
+	    "e_concept": "True",
+	    "definitie": "Tesut nervos cu aspect albicios, care face parte din sistemul nervos central"
+   },
+   {
+	    "id": 107,
+	    "nume": "Cordoane medulare",
+	    "noduri_legate": [117,127,137],
+	    "arc_nod": ["alcatuite din", "alcatuite din", "alcatuite din"],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": [],
+	    "e_concept": "True",
+	    "definitie": "Componente ale substantei albe"
+   },
+   {
+	    "id": 117,
+	    "nume": "Tracturi",
+	    "noduri_legate": [],
+	    "arc_nod": [],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": [],
+	    "e_concept": "True",
+	    "definitie": "Componente ale cordoanelor medulare"
+   },
+   {
+	    "id": 127,
+	    "nume": "Fascicule de fibre exogene",
+	    "noduri_legate": [],
+	    "arc_nod": [],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": [],
+	    "e_concept": "True",
+	    "definitie": "Componente ale cordoanelor medulare"
+   },
+   {
+	    "id": 137,
+	    "nume": "Fascicule de fibre endogene",
+	    "noduri_legate": [147,187],
+	    "arc_nod": ["de tip", "de tip"],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": [],
+	    "e_concept": "True",
+	    "definitie": "Componente ale cordoanelor medulare"
+   },
+   {
+	    "id": 147,
+	    "nume": "Fibre ascendente",
+	    "noduri_legate": [157,167,177],
+	    "arc_nod": ["de tip", "de tip", "de tip"],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": ["Fibre senzitive"],
+	    "e_concept": "True",
+	    "definitie": "Un tip de fibre endogene"
+   },
+   {
+	    "id": 157,
+	    "nume": "Exteroceptive",
+	    "noduri_legate": [],
+	    "arc_nod": [],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": [],
+	    "e_concept": "True",
+	    "definitie": "Un tip de fibre ascendente"
+   },
+   {
+	    "id": 167,
+	    "nume": "Proprioceptive",
+	    "noduri_legate": [],
+	    "arc_nod": [],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": [],
+	    "e_concept": "True",
+	    "definitie": "Un tip de fibre ascendente"
+   },
+   {
+	    "id": 177,
+	    "nume": "Interoceptive",
+	    "noduri_legate": [],
+	    "arc_nod": [],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": [],
+	    "e_concept": "True",
+	    "definitie": "Un tip de fibre ascendente"
+   },
+   {
+	    "id": 187,
+	    "nume": "Fibre descendente",
+	    "noduri_legate": [197,207],
+	    "arc_nod": ["de tip", "de tip"],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": ["Fibre motorii"],
+	    "e_concept": "True",
+	    "definitie": "Un tip de fibre endogene"
+   },
+   {
+	    "id": 197,
+	    "nume": "Piramidale",
+	    "noduri_legate": [],
+	    "arc_nod": [],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": [],
+	    "e_concept": "True",
+	    "definitie": "Un tip de fibre descendente"
+    },
+    {
+	    "id": 207,
+	    "nume": "Extrapiramidale",
+	    "noduri_legate": [],
+	    "arc_nod": [],
+	    "domeniu": "Maduva spinarii",
+	    "sinonime": [],
+	    "e_concept": "True",
+	    "definitie": "Un tip de fibre descendente"
+    }
+]
