@@ -2,10 +2,10 @@ import json
 
 
 #Change path
-with open(r'C:\Users\Vlad\Desktop\fisier1_subiecte.txt', 'r') as data_file:
+with open(r'C:\Users\Vlad\Desktop\fisier1_subiecte.txt',  'r' , encoding = "utf8") as data_file:
     json_data_subiecte = data_file.read()
 
-with open(r'C:\Users\Vlad\Desktop\fisier2_proprietati.txt', 'r') as data_file:
+with open(r'C:\Users\Vlad\Desktop\fisier2_proprietati.txt', 'r' , encoding = "utf8") as data_file:
     json_data_proprietati = data_file.read()
 
 subjects = json.loads(json_data_subiecte)
