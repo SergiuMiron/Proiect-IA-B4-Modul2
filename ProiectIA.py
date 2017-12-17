@@ -31,11 +31,6 @@ for inst in subjects:
         if inst["arc_nod"].count("contine") > 0 and inst["arc_nod"].count("contine") == len(inst["arc_nod"]):
             question_id = question_id + 1
             question = [question_id,inst["domeniu"],"Easy","Ce componenta face parte parte din " + inst["nume"],"Variante multiple"]
-            #print(Articulation.ArticulateWord(inst["nume"]))
-            #word=inst["nume"].split()
-            #print(word[0])
-
-
             question_id_file.write(str(question))
             question_id_file.write("\n")
             bool = True
@@ -46,8 +41,6 @@ for inst in subjects:
                # if(len(inst["noduri_legate"]) == 1)
                      #nr_raspunsuri_totale = nr_raspunsuri_totale + 1
                      x = [i for i in subjects if i["id"] == id_nod]
-                     y = [i for i in subjects if i["id"] != id_nod]
-                     random.shuffle(y)
                      if nr_raspunsuri_corecte <= 3:
                         if x != []:
                             x = x[0]
@@ -62,7 +55,10 @@ for inst in subjects:
                             answer = [answer_id, question_id,x["nume"],bool ]
                             answer_id_file.write(str(answer))
                             answer_id_file.write("\n")
-                     if (nr_raspunsuri_totale <= 5):
+            for id_nod in inst["noduri_legate"]:
+                     while (nr_raspunsuri_totale <= 5):
+                         y = [i for i in subjects if i["id"] != id_nod]
+                         random.shuffle(y)
                          if y != []:
                              y = y[0]
                              bool = False
