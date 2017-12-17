@@ -4,7 +4,6 @@
 
 def ArticulateWord(word):
 
-	print("Before art:",word)
 
 	try:
 		import urllib.request
