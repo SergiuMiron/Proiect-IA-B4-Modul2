@@ -1,5 +1,6 @@
 import json
 import random
+import Articulation
 
 
 #Change path
@@ -30,6 +31,10 @@ for inst in subjects:
         if inst["arc_nod"].count("contine") > 0 and inst["arc_nod"].count("contine") == len(inst["arc_nod"]):
             question_id = question_id + 1
             question = [question_id,inst["domeniu"],"Easy","Ce componenta face parte parte din " + inst["nume"],"Variante multiple"]
+            #print(Articulation.ArticulateWord(inst["nume"]))
+            #word=inst["nume"].split()
+            #print(word[0])
+
 
             question_id_file.write(str(question))
             question_id_file.write("\n")
@@ -110,7 +115,34 @@ for inst in subjects:
                              answer_id_file.write(str(answer))
                              answer_id_file.write("\n")
 
-
+#Third type of question
+for inst in subjects:
+    if inst["definitie"] != "":
+            question_id = question_id + 1
+            question = [question_id,inst["domeniu"],"Easy","Care dintre urmatoarele variante poate fi considerata o definitie a termenului: " + inst["nume"],"Variante multiple"]
+            question_id_file.write(str(question))
+            question_id_file.write("\n")
+            bool = True
+            nr_raspunsuri_corecte = 0
+            nr_raspunsuri_totale = 0
+            if nr_raspunsuri_corecte < 1:
+               bool = True
+               nr_raspunsuri_corecte = nr_raspunsuri_corecte + 1
+               nr_raspunsuri_totale = nr_raspunsuri_totale + 1
+               answer_id = answer_id + 1
+               answer = [answer_id, question_id,inst["definitie"],bool ]
+               answer_id_file.write(str(answer))
+               answer_id_file.write("\n")
+            while (nr_raspunsuri_totale <= 3):
+                bool = False
+                x = [i for i in subjects if i["definitie"] != inst["definitie"] and i["definitie"] != ""]
+                random.shuffle(x)
+                x = x[0]
+                nr_raspunsuri_totale = nr_raspunsuri_totale + 1
+                answer_id = answer_id + 1
+                answer = [answer_id,question_id,x["definitie"],bool]
+                answer_id_file.write(str(answer))
+                answer_id_file.write("\n")
 
 
 
