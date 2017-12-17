@@ -71,11 +71,3 @@ def ArticulateWord(word):
 			return list_all_4[3]
 	except:
 		return "Eroare"
-
-
-data = "fibră"
-
-print(ArticulateWord("cutie"))
-print(ArticulateWord(data))
-print(ArticulateWord("cutiile"))
-print(ArticulateWord("paralel"))
