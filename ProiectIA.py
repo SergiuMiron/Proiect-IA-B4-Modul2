@@ -29,10 +29,20 @@ answer_id_file =  open(r'C:\Users\Sergiu\Desktop\answers_vm.txt','w', encoding =
 for inst in subjects:
     if inst["noduri_legate"] != []:
         if inst["arc_nod"].count("contine") > 0 and inst["arc_nod"].count("contine") == len(inst["arc_nod"]):
-            question_id = question_id + 1
-            question = [question_id,inst["domeniu"],"Easy","Ce componenta face parte parte din " + inst["nume"],"Variante multiple"]
-            question_id_file.write(str(question))
-            question_id_file.write("\n")
+            words = inst["nume"].split()
+
+            if len(words) > 1:
+                words[0] = Articulation.ArticulateWord(words[0])
+                question_id = question_id + 1
+                words = " ".join(words)
+                question = [question_id,inst["domeniu"],"Easy","Ce componenta face parte parte din " + words + "?","Variante multiple"]
+                question_id_file.write(str(question))
+                question_id_file.write("\n")
+            else:
+                question_id = question_id + 1
+                question = [question_id, inst["domeniu"], "Easy", "Ce componenta face parte parte din " + inst["nume"].lower() + "?", "Variante multiple"]
+                question_id_file.write(str(question))
+                question_id_file.write("\n")
             bool = True
             nr_raspunsuri_corecte = 1
             nr_raspunsuri_totale = 1
@@ -52,7 +62,7 @@ for inst in subjects:
                             #print(inst["nume"])
                             #print(inst["id"])
                             answer_id = answer_id + 1
-                            answer = [answer_id, question_id,x["nume"],bool ]
+                            answer = [answer_id, question_id,x["nume"].lower(),bool ]
                             answer_id_file.write(str(answer))
                             answer_id_file.write("\n")
             for id_nod in inst["noduri_legate"]:
@@ -64,7 +74,7 @@ for inst in subjects:
                              bool = False
                              nr_raspunsuri_totale = nr_raspunsuri_totale + 1
                              answer_id = answer_id + 1
-                             answer = [answer_id,question_id,y["nume"],bool]
+                             answer = [answer_id,question_id,y["nume"].lower(),bool]
                              answer_id_file.write(str(answer))
                              answer_id_file.write("\n")
 
@@ -73,7 +83,7 @@ for inst in subjects:
     if inst["noduri_legate"] != []:
         if inst["arc_nod"].count("de_tip") > 0 and inst["arc_nod"].count("de_tip") == len(inst["arc_nod"]):
             question_id = question_id + 1
-            question = [question_id,inst["domeniu"],"Easy","Care dintre urmatoarele variante sunt tipuri de  " + inst["nume"] + "?","Variante multiple"]
+            question = [question_id,inst["domeniu"],"Easy","Care dintre urmatoarele variante sunt tipuri de  " + inst["nume"].lower() + "?","Variante multiple"]
 
             question_id_file.write(str(question))
             question_id_file.write("\n")
