@@ -28,7 +28,6 @@ def ArticulateWord(word):
 		mystr = mybytes.decode("utf8")
 		fp.close()
 
-
 		x = mystr.find("nominativ-acuzativ</td>")
 
 		newstr = mystr[x:]
@@ -80,6 +79,31 @@ def ArticulateWord(word):
 
 		if word == list_all_4[3]:
 			return list_all_4[3]
+
+		word = word.replace("ă","a")
+		word = word.replace("î","i")
+		word = word.replace("â","a")
+		word = word.replace("ț","t")
+		word = word.replace("ș","s")
+
+		list_all_4[0] = list_all_4[0].replace("ă","a").replace("î","i").replace("â","a").replace("ț","t").replace("ș","s")
+		list_all_4[1] = list_all_4[1].replace("ă","a").replace("î","i").replace("â","a").replace("ț","t").replace("ș","s")
+		list_all_4[2] = list_all_4[2].replace("ă","a").replace("î","i").replace("â","a").replace("ț","t").replace("ș","s")
+		list_all_4[3] = list_all_4[3].replace("ă","a").replace("î","i").replace("â","a").replace("ț","t").replace("ș","s")
+
+		if word == list_all_4[0]:
+			return list_all_4[1]
+
+		if word == list_all_4[1]:
+			return list_all_4[1];
+
+		if word == list_all_4[2]:
+			return list_all_4[3]
+
+		if word == list_all_4[3]:
+			return list_all_4[3]
+
+		return word
 	except:
 		return "Error"
 
@@ -88,7 +112,8 @@ print(ArticulateWord("cutie"))
 print(ArticulateWord("fibră"))
 print(ArticulateWord("cutiile"))
 print(ArticulateWord("paralel"))
-print(ArticulateWord("țap"))
+print(ArticulateWord("spațiu"))
 print(ArticulateWord("sânge"))
 print(ArticulateWord("BĂRBAT"))
 print(ArticulateWord("CUTIa"))
+print(ArticulateWord("asad"))
