@@ -30,17 +30,17 @@ for inst in subjects:
     if inst["noduri_legate"] != []:
         if inst["arc_nod"].count("contine") > 0 and inst["arc_nod"].count("contine") == len(inst["arc_nod"]):
             words = inst["nume"].split()
-
+            randoms = [0, 1, 2]
             if len(words) > 1:
                 words[0] = Articulation.ArticulateWord(words[0])
                 question_id = question_id + 1
                 words = " ".join(words)
-                question = [question_id,inst["domeniu"],"Easy","Ce componenta face parte parte din " + words + "?","Variante multiple"]
+                question = [question_id,inst["domeniu"],random.choice(randoms),"Ce componenta face parte parte din " + words + "?",0]
                 question_id_file.write(str(question))
                 question_id_file.write("\n")
             else:
                 question_id = question_id + 1
-                question = [question_id, inst["domeniu"], "Easy", "Ce componenta face parte parte din " + inst["nume"].lower() + "?", "Variante multiple"]
+                question = [question_id, inst["domeniu"], random.choice(randoms), "Ce componenta face parte parte din " + inst["nume"].lower() + "?", 0]
                 question_id_file.write(str(question))
                 question_id_file.write("\n")
             bool = True
@@ -82,8 +82,10 @@ for inst in subjects:
 for inst in subjects:
     if inst["noduri_legate"] != []:
         if inst["arc_nod"].count("de_tip") > 0 and inst["arc_nod"].count("de_tip") == len(inst["arc_nod"]):
+            randoms = [0 , 1, 2]
+            random.shuffle(randoms)
             question_id = question_id + 1
-            question = [question_id,inst["domeniu"],"Easy","Care dintre urmatoarele variante sunt tipuri de  " + inst["nume"].lower() + "?","Variante multiple"]
+            question = [question_id,inst["domeniu"],random.choice(randoms),"Care dintre urmatoarele variante sunt tipuri de  " + inst["nume"].lower() + "?",0]
 
             question_id_file.write(str(question))
             question_id_file.write("\n")
@@ -124,8 +126,10 @@ for inst in subjects:
 #Third type of question
 for inst in subjects:
     if inst["definitie"] != "":
+            randoms = [0, 1, 2]
+            random.shuffle(randoms)
             question_id = question_id + 1
-            question = [question_id,inst["domeniu"],"Easy","Care dintre urmatoarele variante poate fi considerata o definitie a termenului: " + inst["nume"],"Variante multiple"]
+            question = [question_id,inst["domeniu"],random.choice(randoms),"Care dintre urmatoarele variante poate fi considerata o definitie a termenului: " + inst["nume"],0]
             question_id_file.write(str(question))
             question_id_file.write("\n")
             bool = True
