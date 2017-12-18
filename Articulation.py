@@ -2,14 +2,25 @@
 
 #TODO - Not sure how to work around for diacritics
 
+
 def ArticulateWord(word):
 
 	print("Before art:",word)
 
 	try:
+
 		import urllib.request
 
-		the_url = "https://dexonline.ro/definitie/" + word + "/paradigma"
+		word = word.lower()
+
+		fin_word = word
+		fin_word = fin_word.replace("ă",r"%C4%83")
+		fin_word = fin_word.replace("î",r"%C3%AE")
+		fin_word = fin_word.replace("â",r"%C3%A2")
+		fin_word = fin_word.replace("ț",r"%C8%9B")
+		fin_word = fin_word.replace("ș",r"%C8%99")
+
+		the_url = "https://dexonline.ro/definitie/" + fin_word + "/paradigma"
 
 		fp = urllib.request.urlopen(the_url)
 		mybytes = fp.read()
@@ -70,12 +81,14 @@ def ArticulateWord(word):
 		if word == list_all_4[3]:
 			return list_all_4[3]
 	except:
-		return "Eroare"
+		return "Error"
 
-
-data = "fibră"
 
 print(ArticulateWord("cutie"))
-print(ArticulateWord(data))
+print(ArticulateWord("fibră"))
 print(ArticulateWord("cutiile"))
 print(ArticulateWord("paralel"))
+print(ArticulateWord("țap"))
+print(ArticulateWord("sânge"))
+print(ArticulateWord("BĂRBAT"))
+print(ArticulateWord("CUTIa"))
