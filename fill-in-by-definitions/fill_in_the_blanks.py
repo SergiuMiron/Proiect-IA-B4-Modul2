@@ -10,16 +10,18 @@ def get_data_from_json(filename):
         file = open(str(pathlib.Path(__file__).parent) + "\\" + filename, "r", encoding="utf-8-sig")
         to_return = json.loads(file.read())
         return to_return
+    except FileNotFoundError:
+        print("File not found")
     except IOError:
-        print("Cannot open file or file does not exist")
+        print("Cannot open file")
     except Exception as e:
         print(e)
 
 
 def fill_in_by_def(nr_questions):
     try:
-        nr_questions = (int)(nr_questions)
         subjects = get_data_from_json("fisier1_subiecte.json")
+        nr_questions = min(int(nr_questions), len(subjects))
         random.shuffle(subjects)
 
         answers_file = open(str(pathlib.Path(__file__).parent) + "\\answers.txt", "w", encoding="utf-8-sig")
@@ -54,8 +56,8 @@ def fill_in_by_def(nr_questions):
                 # Daca am putut construi un raspuns valid adaugam si intrebarea
                 if question_id < answer_id:
                     question_id = question_id + 1
-                    # al 3-lea argument este dificultatea
-                    question = [question_id, inst["domeniu"], "Easy", "... " + question_data_final, "FillIn"]
+                    # al 3-lea argument este dificultatea: 0 - easy, 1 - medium, 2 - hard
+                    question = [question_id, inst["domeniu"], diffBasedOnNodeDist(inst["id"]), "... " + question_data_final, "FillIn"]
                     questions_file.write(str(question) + '\n')
                     nr_questions = nr_questions - 1
 
@@ -65,12 +67,15 @@ def fill_in_by_def(nr_questions):
         answers_file.close()
         questions_file.close()
 
+    except FileNotFoundError:
+        print("File not found")
     except IOError:
-        print("Cannot open file or file does not exist")
+        print("Cannot open file")
     except ValueError:
         print("Wrong data type for nr of questions")
     except Exception as e:
         print(e)
 
 
-fill_in_by_def("30")
+fill_in_by_def(30)
+
