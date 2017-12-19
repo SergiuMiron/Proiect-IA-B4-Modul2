@@ -40,21 +40,17 @@ for inst in subjects:
         # Verific doar cuvintele ce le pot articula (fara diacritice si care exista in dex)
         # Definitiile formate din 2 cuvinte -> il articulez doar pe primul ("margine anterioara -> marginea anterioara")
         if answer_data.count(" ") == 0:
-            if ArticulateWord(str.lower(answer_data)) is not None:
-                if str(ArticulateWord(str.lower(answer_data))) != "Eroare":
-                    answer_data_final = ArticulateWord(str.lower(answer_data)).title()
-                    answer_id = answer_id + 1
-                    answer = [answer_id, question_id + 1, answer_data_final, True]
-                    answer_id_file.write(str(answer) + '\n')
+            answer_data_final = ArticulateWord(str.lower(answer_data)).title()
+            answer_id = answer_id + 1
+            answer = [answer_id, question_id + 1, answer_data_final, True]
+            answer_id_file.write(str(answer) + '\n')
         else:
             index_space = answer_data.index(" ")
             first_word = answer_data[0:index_space]
-            if ArticulateWord(str.lower(first_word)) is not None:
-                if str(ArticulateWord(str.lower(first_word))) != "Eroare":
-                    answer_data_final = ArticulateWord(str.lower(first_word)).title() + answer_data[index_space:]
-                    answer_id = answer_id + 1
-                    answer = [answer_id, question_id + 1, answer_data_final, True]
-                    answer_id_file.write(str(answer) + '\n')
+            answer_data_final = ArticulateWord(str.lower(first_word)).title() + answer_data[index_space:]
+            answer_id = answer_id + 1
+            answer = [answer_id, question_id + 1, answer_data_final, True]
+            answer_id_file.write(str(answer) + '\n')
 
         # daca am putut construi un raspuns valid adaugam si intrebarea
         if question_id < answer_id:
