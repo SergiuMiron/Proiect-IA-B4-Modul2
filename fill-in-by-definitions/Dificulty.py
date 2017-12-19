@@ -2,7 +2,8 @@ import json
 import sys
 
 if "Difficulty" not in sys.modules:
-    with open(r'C:\Users\razva\Desktop\fill-in-by-definitons\fisier1_subiecte.json', 'r',
+    # TO EDIT HERE
+    with open(r'C:\Users\razva\Desktop\fill-in-by-definitions\fisier1_subiecte.json', 'r',
               encoding="utf-8-sig") as data_file:
         json_data_subiecte = data_file.read()
 
