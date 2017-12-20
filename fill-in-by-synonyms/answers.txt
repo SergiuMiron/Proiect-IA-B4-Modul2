@@ -1,3 +1,0 @@
-1,  1,  valvă mitrală,  True
-2,  2,  cord,  True
-3,  3,  perete septal,  True

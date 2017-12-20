@@ -70,3 +70,4 @@ def articulate_word(word):
             return list_all_4[3]
     except:
         return "Error"
+

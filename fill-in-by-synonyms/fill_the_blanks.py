@@ -1,6 +1,9 @@
 import loadJSON
 import articulation
 import pathlib
+import difficulty
+import word_gender
+import plural
 
 
 def remove_duplicates(concepte):
@@ -37,7 +40,6 @@ class Question:
     def __init__(self):
         self.id = 0
         self.statement = ""
-        self.difficulty = ""
         self.field = -1
         self.type = 1
 
@@ -59,58 +61,74 @@ def has_synonyms(concept):
         return False
 
 
-def get_gender(word):
-    if word[-1] == 'ă':
-        return 'f'
-    else:
-        return 'm'
-
-
 def create_question(concept_p):
 
-    # q_a_f -> Lista in care retinem intrebarea, raspunsul si domeniul
+    print(concept_p["nume"])
+
+    question = Question()
+    Question.id += 1
+    # Avem variabila statica ce retine id-ul intrebarii, dar avem si variabila de instanta ca sa stim pe viitor id-ul acesteia.
+    question.id = Question.id
+
+    # q_a_f -> Lista in care retinem intrebarea, raspunsurile si domeniul
     q_a_f = []
+    questions = []
+    answers = []
+    fields = []
 
     field = Field()
     field.nume = concept_p["domeniu"]
 
-    question = Question()
-
-    Question.id += 1
-    question.id = Question.id
-
-    # In cazul in care avem mai multe cuvinte in numele conceptului articulam doar primul cuvant.
-    words_q = concept_p["nume"].split(' ')
-    first_word = words_q[0]
-    gender = get_gender(first_word)
-    first_word_articulated = articulation.articulate_word(first_word)
-
-    if len(words_q) > 1:
-        second_word = words_q[1]
-        question.statement = first_word_articulated.capitalize() + ' ' + second_word
-    else:
-        question.statement = first_word_articulated.capitalize()
-
-    if gender == 'f':
-        question.statement = question.statement + " mai este cunoscută și sub numele de"
-    else:
-        question.statement = question.statement + " mai este cunoscut și sub numele de"
-
+    # Luam domeniul din obiectul json si vedem daca exista deja in lista tuturor domeniilor.
+    # Daca exista, il copiem id-ul sau.
     for fld in Field.all_fields:
         if field.nume == fld.nume:
             field.id = fld.id
             break
 
-    # Retinem domeniul in cazul in care este unul nou.
+    # Retinem domeniul in lista statica "all_fields"  in cazul in care este unul nou.
     if field.id == -1:
         Field.id += 1
         field.id = Field.id
         Field.all_fields.append(field)
-        q_a_f.append(field)
+        fields.append(field)
 
     question.field = field.id
 
-    q_a_f.insert(0, question)
+    # Extragem cuvintele
+    words_q = concept_p["nume"].split(' ')
+    first_word = words_q[0].lower()
+    gender = word_gender.get_gender(first_word)
+    first_word_articulated = str(articulation.articulate_word(first_word)).capitalize()
+    word_plural = plural.get_plural(first_word)
+
+    question.statement = str(first_word_articulated) + ' '
+
+    # In cazul in care avem mai multe cuvinte in numele conceptului, articulam doar primul cuvant si ii facem prima litera majuscula.
+    if len(words_q) > 1:
+        for index in range(1, len(words_q)):
+            question.statement = question.statement + words_q[index] + ' '
+
+    if gender == 'feminin':
+        # Forma de feminin singular/plural
+        if word_plural != first_word:
+            question.statement = question.statement + "mai este cunoscută și sub numele de"
+        else:
+            question.statement = question.statement + "mai sunt cunoscute și sub numele de"
+    elif gender == "masculin":
+        # Forma de masculin singular/plural
+        if word_plural != first_word:
+            question.statement = question.statement + "mai este cunoscut și sub numele de"
+        else:
+            question.statement = question.statement + "mai sunt cunoscuți și sub numele de"
+    else:
+        # Forma de neutru singular/plural
+        if word_plural != first_word:
+            question.statement = question.statement + "mai este cunoscut și sub numele de"
+        else:
+            question.statement = question.statement + "mai sunt cunoscute și sub numele de"
+
+    questions.append(question)
 
     # Pentru fiecare sinonim am un alt raspuns.
     for sinonim in concept_p["sinonime"]:
@@ -119,7 +137,11 @@ def create_question(concept_p):
         answer.id = Answer.id
         answer.qid = question.id
         answer.statement.append(sinonim)
-        q_a_f.insert(1, answer)
+        answers.append(answer)
+
+    q_a_f.append(questions)
+    q_a_f.append(answers)
+    q_a_f.append(fields)
 
     return q_a_f
 
@@ -129,7 +151,6 @@ properties = loadJSON.get_properties()
 
 # Elimin duplicatele. La mine, de exemplu,
 # apare de mai multe ori conceptul de Perete anterior (si posterior si superior etc)..
-
 result = remove_duplicates(concepts)
 
 answers_file = open(str(pathlib.Path(__file__).parent) + "\\answers.txt", "w", encoding="utf8")
@@ -139,12 +160,11 @@ fields_file = open(str(pathlib.Path(__file__).parent) + "\\fields.txt", "w", enc
 for cpt in result:
     if has_synonyms(cpt):
         qst_answ_field = create_question(cpt)
-        q = qst_answ_field[0]
-        a = qst_answ_field[1]
 
-        questions_file.write(str(q.id) + ",  " + str(q.field) + ",  " + q.difficulty + ",  " + q.statement + ",  " + str(q.type) + '\n')
-        answers_file.write(str(a.id) + ",  " + str(a.qid) + ",  " + a.statement[0] + ",  " + str(a.valid) + '\n')
+        for raspuns in qst_answ_field[1]:
+            answer_difficulty = difficulty.diffBasedOnNodeDist(cpt["id"], raspuns.id)
+            questions_file.write(str(qst_answ_field[0][0].id) + ",  " + str(qst_answ_field[0][0].field) + ",  " + str(answer_difficulty) + ",  " + qst_answ_field[0][0].statement + ",  " + str(qst_answ_field[0][0].type) + '\n')
+            answers_file.write(str(raspuns.id) + ",  " + str(raspuns.qid) + ",  " + raspuns.statement[0] + ",  " + str(raspuns.valid) + '\n')
 
-        if len(qst_answ_field) > 2:
-            f = qst_answ_field[2]
-            fields_file.write(str(f.id) + ",  " + f.nume + '\n')
+        if len(qst_answ_field[2]) > 0:
+            fields_file.write(str(qst_answ_field[2][0].id) + ",  " + qst_answ_field[2][0].nume + '\n')
