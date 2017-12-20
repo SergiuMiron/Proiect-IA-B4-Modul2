@@ -1,0 +1,8 @@
+[1, 'Urechea', 0, 'Ce componenta face parte parte din urechea?', 0]
+[2, 'Maduva spinarii', 0, 'Ce componenta face parte parte din coarnele laterale medulare?', 0]
+[3, 'Cutia craniana', 2, 'Ce componenta face parte parte din cutia craniana?', 0]
+[4, 'Cutia craniana', 1, 'Ce componenta face parte parte din creier?', 0]
+[5, 'Urechea', 0, 'Ce componenta face parte parte din urechea externa?', 0]
+[6, 'Cutia craniana', 0, 'Ce componenta face parte parte din spatiul intracranian?', 0]
+[7, 'Urechea', 1, 'Ce componenta face parte parte din oscioare?', 0]
+[8, 'Circulația sângelui', 0, 'Ce componenta face parte parte din peretele anterior?', 0]
