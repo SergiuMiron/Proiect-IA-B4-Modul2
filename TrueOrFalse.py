@@ -1,6 +1,8 @@
 import json
 import random
 from Articulation import ArticulateWord
+from random import randint
+
 
 #Path needs to be changed
 with open(r"C:\Users\Alina Coca\Desktop\ia-project\Proiect-IA-B4-Modul2\fisier1_subiecte.txt",  "r" , encoding = "utf-8-sig") as data_file:
@@ -88,28 +90,25 @@ for inst in subjects:
 #False question
 for inst in subjects:
 
-	concept_name = str(inst["nume"].lower())
-	if len(inst["sinonime"]) == 0:
+	for inst2 in subjects:
 
-		for inst2 in subjects:
+		if (len(inst2["sinonime"]) > 0 and inst["nume"].lower()!=inst2["nume"].lower() and inst["domeniu"].lower() == inst2["domeniu"].lower()):
+			i = randint(0,len(inst2["sinonime"])-1)
+			question_id += 1
+			question = [question_id, inst["domeniu"], 0, "Conceptul " + concept_name + " este identic conceptului de " + str(inst2["sinonime"][i].lower()), 2]	
+			question_id_file.write(str(question))
+			question_id_file.write("\n")
+	
+			#If the question has been created, then add the answer too
+			answer_id += 1
+			answer = [answer_id, question_id, "False", True]
+			answer_id_file.write(str(answer))
+			answer_id_file.write("\n")
 
-			if len(inst2["sinonime"]) > 0:
-				for i in range(0,len(inst2["sinonime"])):
-					question_id += 1
-					question = [question_id, inst["domeniu"], 0, "Conceptul " + concept_name + " este identic conceptului de " + str(inst2["sinonime"][i].lower()), 2]	
-					question_id_file.write(str(question))
-					question_id_file.write("\n")
-			
-					#If the question has been created, then add the answer too
-					answer_id += 1
-					answer = [answer_id, question_id, "False", True]
-					answer_id_file.write(str(answer))
-					answer_id_file.write("\n")
-
-					answer_id += 1
-					answer = [answer_id, question_id, "True", False]
-					answer_id_file.write(str(answer))
-					answer_id_file.write("\n")
+			answer_id += 1
+			answer = [answer_id, question_id, "True", False]
+			answer_id_file.write(str(answer))
+			answer_id_file.write("\n")
 
 
 question_id_file.close()
