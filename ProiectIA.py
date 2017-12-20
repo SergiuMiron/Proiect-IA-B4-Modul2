@@ -68,7 +68,12 @@ for inst in subjects:
             for id_nod in inst["noduri_legate"]:
                      while (nr_raspunsuri_totale <= 5):
                          y = [i for i in subjects if i["id"] != id_nod]
+                         y05 = [i["id"] for i in subjects if i["id"] != id_nod]
+                         y2 = [0 for i in range(0,max(y05) + 1)]
                          random.shuffle(y)
+                         while y2[y[0]["id"]] == 1:
+                             random.shuffle(y)
+                         y2[y[0]["id"]] = 1
                          if y != []:
                              y = y[0]
                              bool = False
@@ -126,6 +131,7 @@ for inst in subjects:
 #Third type of question
 for inst in subjects:
     if inst["definitie"] != "":
+            #print(inst["definitie"])
             randoms = [0, 1, 2]
             random.shuffle(randoms)
             question_id = question_id + 1
