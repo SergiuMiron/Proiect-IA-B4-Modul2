@@ -29,6 +29,7 @@ def multiple_choice_first_type_of_question(nr_questions):
         answer_id = 0
         question_id = 0
 
+        #Primul tip de intrebare
         for inst in subjects:
             if inst["noduri_legate"] != []:
                 if inst["arc_nod"].count("contine") > 0 and inst["arc_nod"].count("contine") == len(inst["arc_nod"]):
@@ -86,6 +87,7 @@ def multiple_choice_first_type_of_question(nr_questions):
             if nr_questions == 0:
                 break
 
+        #Al doilea tip de intrebare
         for inst in subjects:
             if inst["noduri_legate"] != []:
                 if inst["arc_nod"].count("de_tip") > 0 and inst["arc_nod"].count("de_tip") == len(inst["arc_nod"]):
@@ -137,6 +139,7 @@ def multiple_choice_first_type_of_question(nr_questions):
             if nr_questions == 0:
                 break
 
+        #Al 3-lea tip de intrebare
         for inst in subjects:
             if inst["definitie"] != "":
                 # print(inst["definitie"])
