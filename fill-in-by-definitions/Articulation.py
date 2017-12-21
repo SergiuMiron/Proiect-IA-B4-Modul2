@@ -1,10 +1,9 @@
-
-
 #TODO - Not sure how to work around for diacritics
 
 
 def ArticulateWord(word):
 
+	print("Before art:",word)
 
 	try:
 
@@ -27,6 +26,8 @@ def ArticulateWord(word):
 		mystr = mybytes.decode("utf8")
 		fp.close()
 
+		if word =="paralel": 
+			print(mystr)
 		x = mystr.find("nominativ-acuzativ</td>")
 
 		newstr = mystr[x:]
@@ -106,3 +107,13 @@ def ArticulateWord(word):
 	except:
 		return "Error"
 
+
+print(ArticulateWord("cutie"))
+print(ArticulateWord("fibră"))
+print(ArticulateWord("cutiile"))
+print(ArticulateWord("paralel"))
+print(ArticulateWord("spațiu"))
+print(ArticulateWord("sânge"))
+print(ArticulateWord("BĂRBAT"))
+print(ArticulateWord("CUTIa"))
+print(ArticulateWord("asad"))
