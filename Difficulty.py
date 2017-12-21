@@ -110,4 +110,3 @@ def diffBasedOnNodeDist(root_id, first_node, second_node, subjects):
 
 
 
-
