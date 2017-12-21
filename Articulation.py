@@ -1,3 +1,5 @@
+
+
 #TODO - Not sure how to work around for diacritics
 
 
@@ -26,8 +28,6 @@ def ArticulateWord(word):
 		mystr = mybytes.decode("utf8")
 		fp.close()
 
-		if word =="paralel": 
-			print(mystr)
 		x = mystr.find("nominativ-acuzativ</td>")
 
 		newstr = mystr[x:]
