@@ -2,7 +2,7 @@ import json
 import sys
 
 if "Difficulty" not in sys.modules:
-    with open(r'C:\Users\Alina Coca\Desktop\ia-project\Proiect-IA-B4-Modul2\fisier1_subiecte.txt', 'r',
+    with open(r'C:\Users\Mircius\Desktop\Inteligenta Artificiala\Proiect-IA-B4-Modul2\fisier1_subiecte.txt', 'r',
               encoding="utf-8-sig") as data_file:
         json_data_subiecte = data_file.read()
 
