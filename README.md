@@ -6,8 +6,8 @@ Sarcina acestui modul este de a compune o serie de intrebari pe baza unei ontolo
    
    Formatul unei intrebari va fi urmatorul:
 -  Enuntul intrebarii
--  Scorul sau dificultatea intrebarii ( va fi calculat cu ajutorul distantei Levenstein)
+-  Scorul sau dificultatea intrebarii ( Easy / Medium / Hard)
 -  Domeniul din care face parte
--  Toate variantele de raspuns , implicit raspunsurile corecte
+-  Toate variantele de raspuns, implicit raspunsurile corecte
 
 
