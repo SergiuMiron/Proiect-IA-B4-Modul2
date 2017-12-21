@@ -1,0 +1,78 @@
+[
+	{
+		"id": 11,
+        "nume": "formă de piramidă triunghiulară cu vârful în jos",
+        "parinte": [],
+        "id_sub": [2]
+    },
+	
+	{
+		"id": 12,
+        "nume": "dimensiune aproximativ egală cu pumnul individului",
+        "parinte": [],
+        "id_sub": [2]
+    },
+	
+	{
+		"id": 23,
+        "nume": "aspect neregulat",
+        "parinte": [],
+        "id_sub": [17,46,47]
+    },
+	
+	{
+		"id": 26,
+        "nume": "formă de cub",
+        "parinte": [],
+        "id_sub": [13,14]
+    },
+	
+	{
+		"id": 32,
+        "nume": "prezintă 4 orificii ale venelor pulmonare: două drepte şi două stângi",
+        "parinte": [],
+        "id_sub": [29]
+    },
+	
+	{
+		"id": 40,
+        "nume": "prezintă trabecule",
+        "parinte": [],
+        "id_sub": [35, 36,46,47]
+    },
+	
+	{
+		"id": 42,
+        "nume": "conține 2 orificii: orificiul atrioventricular stâng şi orificiul aortei",
+        "parinte": [],
+        "id_sub": [39]
+    },
+	
+	{
+		"id": 49,
+        "nume": "dimensiuni mai reduse decât ale ventriculului",
+        "parinte": [],
+        "id_sub": [13,14]
+    },
+	
+	{
+		"id": 50,
+        "nume": "pereți groși",
+        "parinte": [],
+        "id_sub": [15,16]
+    },
+	
+	{
+		"id": 51,
+        "nume": "pereți neregulați",
+        "parinte": [],
+        "id_sub": [15,16]
+    },
+	
+	{
+		"id": 52,
+        "nume": "dimensiuni mai mari decât ale atriului",
+        "parinte": [],
+        "id_sub": [15,16]
+    }
+]
