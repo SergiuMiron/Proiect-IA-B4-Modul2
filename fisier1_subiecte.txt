@@ -1,11 +1,11 @@
-[
+﻿[
     {
         "id": 12,
         "nume": "Cutia craniana",
         "noduri_legate": [13],
         "arc_nod": ["contine"],
         "domeniu": "Cutia craniana",
-        "sinonime": ["Craniu"],
+        "sinonime": ["Craniu","Craniusor"],
 	"e_concept": "True",
 	"definitie": "Este o structura osoasa care contine si protejeaza encefalul"
     },
@@ -573,16 +573,6 @@
 		"definitie": "Peretele lateral are aspect neregulat şi la acest nivel se pot identifica muşchii pectinaţi ai atriului drept."
 	},
 	
-	{
-		"id": 184,
-		"nume": "perete medial",
-		"noduri_legate": [244, 254],
-		"arc_nod": ["alcătuit din", "prezintă"],
-		"domeniu": "Circulația sângelui",
-		"sinonime": ["perete septal"],
-		"e_concept": "True",
-		"definitie": "Peretele medial sau septal este alcătuit din septul interatrial (septul ce separă cele două atrii). Acesta prezintă în porţiunea centrală fosa ovală."
-	},
 	
 	{
 		"id": 194,
@@ -661,16 +651,6 @@
 		"definitie": "Peretele lateral se continuă prin intermediul orificiului auricului stâng cu cavitatea acestuia."
 	},
 	
-	{
-		"id": 284,
-		"nume": "perete medial",
-		"noduri_legate": [],
-		"arc_nod": [],
-		"domeniu": "Circulația sângelui",
-		"sinonime": ["perete septal"],
-		"e_concept": "True",
-		"definitie": "Peretele medial sau septal este reprezentat de septul interatrial."
-	},
 	
 	{
 		"id": 294,
@@ -813,17 +793,6 @@
 		"sinonime": [],
 		"e_concept": "True",
 		"definitie": "Vârful ventriculului drept este localizat în apropierea vârfului inimii, doar la un cm mai sus şi mai la drepata faţa de acesta."
-	},
-	
-	{
-		"id": 454,
-		"nume": "perete medial",
-		"noduri_legate": [],
-		"arc_nod": [],
-		"domeniu": "Circulația sângelui",
-		"sinonime": ["perete septal"],
-		"e_concept": "True",
-		"definitie": "Peretele medial sau septal este reprezentat de septul interventricular (septul ce separă cei doi ventriculi)."
 	},
 	
 	{
