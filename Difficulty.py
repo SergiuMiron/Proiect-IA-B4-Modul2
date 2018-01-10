@@ -92,9 +92,9 @@ def calculateDistBetweenNodes(root_node_id, subjects):
 def diffBasedOnNodeDist(root_id, first_node, second_node, subjects):
    distances = calculateDistBetweenNodes(root_id, subjects)
    difficulty = distances[(first_node, second_node)] * 100 / max(distances.values());
-   print(distances)
-   print(distances[(first_node, second_node)])
-   print(max(distances.values()))
+   #print(distances)
+   #print(distances[(first_node, second_node)])
+   #print(max(distances.values()))
    if difficulty < 33.3:
        return 0
    elif difficulty > 33.3 and difficulty < 66.6:
@@ -102,4 +102,48 @@ def diffBasedOnNodeDist(root_id, first_node, second_node, subjects):
    else: return 2
 
 
+# Levenshtein distance implementation
 
+def levenshtein(s1, s2):
+    if len(s1) < len(s2):
+        return levenshtein(s2, s1)
+
+    # len(s1) >= len(s2)
+    if len(s2) == 0:
+        return len(s1)
+
+    previous_row = range(len(s2) + 1)
+    for i, c1 in enumerate(s1):
+        current_row = [i + 1]
+        for j, c2 in enumerate(s2):
+            insertions = previous_row[
+                             j + 1] + 1  # j+1 instead of j since previous_row and current_row are one character longer
+            deletions = current_row[j] + 1  # than s2
+            substitutions = previous_row[j] + (c1 != c2)
+            current_row.append(min(insertions, deletions, substitutions))
+        previous_row = current_row
+
+    return previous_row[-1]
+
+# !! First and second node id the id from the ontology, not the index in the subjects file !!
+def diffBasedOnLevDist(first_node_id, second_node_id, subjects):
+    first_name = subjects[getEntryIndexById(first_node_id, subjects)]["nume"]
+    second_name = subjects[getEntryIndexById(second_node_id, subjects)]["nume"]
+
+    difference = levenshtein(first_name, second_name)
+    max_diff = max(len(first_name), len(second_name))
+
+    difficulty = difference * 100 / max_diff
+    difficulty = 100 - difficulty
+
+    # caz in care cele doua siruri sunt identice => dificultate usoara
+    if difficulty == 100:
+        return 0
+
+    # altfel cu cat mai mica diferenta dintre cuvinte, cu atat mai grea intrebarea
+    elif difficulty < 33.3:
+        return 0
+    elif difficulty > 33.3 and difficulty < 66.6:
+        return 1
+    else:
+        return 2
