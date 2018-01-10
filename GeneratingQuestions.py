@@ -4,6 +4,10 @@ import random
 import Articulation
 import Difficulty
 from Difficulty import diffBasedOnNodeDepth
+import pathlib
+import WordGender
+import Plural
+
 with open('fisier1_subiecte.txt', 'r', encoding="utf-8-sig") as data_file:
     json_data_subiecte = data_file.read()
 
@@ -299,3 +303,187 @@ def multiple_choice_first_type_of_question(nr_questions):
         print(e)
 
 multiple_choice_first_type_of_question(30)
+
+
+# FILL IN QUESTIONS
+
+def remove_duplicates(concepte):
+    lista = list()
+    nume = set()
+    try:
+        for dictionar in concepte:
+            for key, value in dictionar.items():
+                if key == "nume":
+                    nume.add(value)
+        for n in nume:
+            for c in concepte:
+                if n == c["nume"]:
+                    lista.append(c)
+                    break
+        return lista
+    except IndexError as e:
+        print("Eroare: " + str(e))
+
+
+def has_synonyms(concept):
+    if len(concept["sinonime"]) > 0:
+        return True
+    else:
+        return False
+
+
+def generate_fill_in_by_definitions_questions(nr_questions):
+    try:
+        nr_questions = min(int(nr_questions), len(subjects))
+        random.shuffle(subjects)
+
+        answers_file = open(str(pathlib.Path(__file__).parent) + "\\fillin_a_definitions.txt", "w", encoding="utf-8-sig")
+        questions_file = open(str(pathlib.Path(__file__).parent) + "\\fillin_q_definitions.txt", "w", encoding="utf-8-sig")
+
+        answer_id = 0
+        question_id = 0
+
+        for inst in subjects:
+            if "este" in inst["definitie"] or "Este" in inst["definitie"]:
+                answer_data = inst["nume"]
+                question_data = str.lower(inst["definitie"])
+                if inst["definitie"].startswith("Este"):
+                    question_data_final = question_data
+                else:
+                    index_space = question_data.index("este")
+                    question_data_final = question_data[index_space:]
+
+                if answer_data.count(" ") == 0:
+                    answer_data_final = Articulation.ArticulateWord(answer_data).capitalize()
+                    # print(answer_data_final)
+                    answer_id = answer_id + 1
+                    answer = [answer_id, question_id + 1, answer_data_final, True]
+                    answers_file.write(str(answer) + '\n')
+                else:
+                    index_space = answer_data.index(" ")
+                    first_word = answer_data[0:index_space]
+                    answer_data_final = Articulation.ArticulateWord(str.lower(first_word)).capitalize() + answer_data[index_space:]
+                    answer_id = answer_id + 1
+                    answer = [answer_id, question_id + 1, answer_data_final, True]
+                    answers_file.write(str(answer) + '\n')
+
+                # Daca am putut construi un raspuns valid adaugam si intrebarea
+                if question_id < answer_id:
+                    question_id = question_id + 1
+                    # al 3-lea argument este dificultatea: 0 - easy, 1 - medium, 2 - hard
+                    question = [question_id, inst["domeniu"], Difficulty.diffBasedOnNodeDepth(subjects[0]["id"], inst["id"], subjects), "... " + question_data_final, "FillIn"]
+                    questions_file.write(str(question) + '\n')
+                    nr_questions = nr_questions - 1
+
+                if nr_questions == 0:
+                    break
+
+        answers_file.close()
+        questions_file.close()
+
+    except FileNotFoundError:
+        print("File not found")
+    except IOError:
+        print("Cannot open file")
+    except ValueError:
+        print("Wrong data type for nr of questions")
+    except Exception as e:
+        print(e)
+
+
+def generate_question(concept_p):
+    # print(concept_p["nume"])
+
+    # Extragem cuvintele
+    words_q = concept_p["nume"].split(' ')
+    first_word = words_q[0].lower()
+    gender = WordGender.WordGender(first_word)
+    first_word_articulated = str(Articulation.ArticulateWord(first_word)).capitalize()
+    word_plural = Plural.get_plural(first_word)
+
+    if gender == "Unknown":
+        gender = "masculin"
+
+    question_statement = str(first_word_articulated) + ' '
+
+    # In cazul in care avem mai multe cuvinte in numele conceptului,
+    #  articulam doar primul cuvant si ii facem prima litera majuscula.
+    if len(words_q) > 1:
+        for index in range(1, len(words_q)):
+            question_statement = question_statement + words_q[index] + ' '
+
+    if gender == 'feminin':
+        # Forma de feminin singular/plural
+        if word_plural != first_word:
+            question_statement = question_statement + "mai este cunoscută și sub numele de"
+        else:
+            question_statement = question_statement + "mai sunt cunoscute și sub numele de"
+    elif gender == "masculin":
+        # Forma de masculin singular/plural
+        if word_plural != first_word:
+            question_statement = question_statement + "mai este cunoscut și sub numele de"
+        else:
+            question_statement = question_statement + "mai sunt cunoscuți și sub numele de"
+    else:
+        # Forma de neutru singular/plural
+        if word_plural != first_word:
+            question_statement = question_statement + "mai este cunoscut și sub numele de"
+        else:
+            question_statement = question_statement + "mai sunt cunoscute și sub numele de"
+
+    return question_statement
+
+
+def generate_fill_in_by_synonyms_questions(nr_questions):
+    # Elimin duplicatele. La mine, de exemplu,
+    # apare de mai multe ori conceptul de Perete anterior (si posterior si superior etc)..
+    result = remove_duplicates(subjects)
+
+    answers_file = open(str(pathlib.Path(__file__).parent) + "\\fillin_a_synonyms.txt", "w", encoding="utf8")
+    questions_file = open(str(pathlib.Path(__file__).parent) + "\\fillin_q_synonyms.txt", "w", encoding="utf8")
+    fields_file = open(str(pathlib.Path(__file__).parent) + "\\fields.txt", "w", encoding="utf8")
+
+    question_id = 0
+    answer_id = 0
+    field_id = 0
+    all_fields = []
+
+    for cpt in result:
+        if has_synonyms(cpt):
+            question_id += 1
+
+            # Domeniu nou? Atunci il adaugam in lista tuturor domeniilor.
+            if cpt["domeniu"] not in all_fields:
+                field_id += 1
+                all_fields.append(cpt["domeniu"])
+                fields_file.write(str(field_id) + ",  " + cpt["domeniu"] + '\n')
+
+            q_statement = generate_question(cpt)
+            answer_difficulty = Difficulty.diffBasedOnNodeDepth(subjects[0]["id"], cpt["id"], subjects)
+
+            # 1 -> Fill in question type
+            questions_file.write('[' +
+                str(question_id) + ",  " + str(field_id) + ",  " + str(answer_difficulty) +
+                ",  " + q_statement + ",  " + str(1) + ']\n')
+
+            for sinonim in cpt["sinonime"]:
+                answer_id += 1
+
+                answers_file.write(
+                    '[' + str(answer_id) + ",  " + str(question_id) + ",  " + sinonim + ",  " + str(True) + ']\n')
+
+            nr_questions -= 1
+
+            if nr_questions == 0:
+                break
+
+    answers_file.close()
+    questions_file.close()
+    fields_file.close()
+
+
+def generate_fill_in_questions(syns_questions, defs_questions):
+    generate_fill_in_by_synonyms_questions(syns_questions)
+    generate_fill_in_by_definitions_questions(defs_questions)
+
+generate_fill_in_questions(10, 30)
