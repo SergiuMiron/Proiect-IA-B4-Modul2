@@ -116,7 +116,7 @@ def GeneratingMatching():
 	        else:
 	            question_id += 1
 	            difficultate = diffBasedOnNodeDepth(subjects[0]["id"],inst["id"],subjects)
-	            question = [question_id, inst["domeniu"],difficultate,inst["nume"],"SingleMathch"]
+	            question = [question_id, inst["domeniu"],difficultate,inst["nume"],"SingleMatch"]
 	            questions_definitions.append(question)
 	            answer = [answer_id,question_id,inst["definitie"],1]
 	            answers_definitions.append(answer)
@@ -487,3 +487,101 @@ def generate_fill_in_questions(syns_questions, defs_questions):
     generate_fill_in_by_definitions_questions(defs_questions)
 
 generate_fill_in_questions(10, 30)
+
+
+
+def GenerateTrueFalse():
+	question_id = 0
+	answer_id = 0
+
+	question_id_file = open("questions_tf.txt","w", encoding = "utf-8-sig")
+	answer_id_file =  open("answers_tf.txt","w", encoding = "utf-8-sig")
+
+	#Questions of type one
+	#The field "definitie" is used for every instance, thus every answer will have to be "Adevarat" of type True
+	#Marked as Easy
+
+	bool = True
+	random.shuffle(subjects)
+	for inst in subjects:
+
+		concept_name = str(inst["nume"].lower())
+		if inst["definitie"] != "":
+		
+			#If there are more words in the concept, articulate the first word
+			if " " in inst["nume"]:
+				space_index = concept_name.index(" ")
+				first_word = concept_name[0:space_index]
+				if Articulation.ArticulateWord(first_word) is not None and Articulation.ArticulateWord(first_word) != "Eroare":
+					rest = concept_name[space_index:] #the  other words in the concept
+					question_id += 1
+					question = [question_id, inst["domeniu"], 0, "Urmatoarea definitie despre " + Articulation.ArticulateWord(first_word) + rest + " este adevarata sau falsa?   " + inst["definitie"],  "TrueFalse"]	
+					question_id_file.write(str(question))
+					question_id_file.write("\n")
+			else:
+				question_id += 1
+				question = [question_id, inst["domeniu"], 0, "Urmatoarea definitie despre " + concept_name + " este adevarata sau falsa?   " + inst["definitie"],  "TrueFalse"]	
+				question_id_file.write(str(question))
+				question_id_file.write("\n")
+			
+			#If the question has been created, then add the answer too
+			if answer_id < question_id:
+				answer_id += 1
+				answer = [answer_id, question_id, "True", bool]
+				answer_id_file.write(str(answer))
+				answer_id_file.write("\n")
+
+
+	#Second type of question
+
+	#True questions
+	for inst in subjects:
+
+		concept_name = str(inst["nume"].lower())
+		if len(inst["sinonime"]) > 0:
+			for i in range(0,len(inst["sinonime"])):
+				question_id += 1
+				question = [question_id, inst["domeniu"], 0, "Conceptul " + concept_name + " este identic conceptului de " + str(inst["sinonime"][i].lower()), "TrueFalse"]	
+				question_id_file.write(str(question))
+				question_id_file.write("\n")
+			
+				#If the question has been created, then add the answer too
+				answer_id += 1
+				answer = [answer_id, question_id, "True", True]
+				answer_id_file.write(str(answer))
+				answer_id_file.write("\n")
+
+				answer_id += 1
+				answer = [answer_id, question_id, "False", False]
+				answer_id_file.write(str(answer))
+				answer_id_file.write("\n")
+		
+	#False question
+	for inst in subjects:
+
+		for inst2 in subjects:
+
+			if (len(inst2["sinonime"]) > 0 and inst["nume"].lower()!=inst2["nume"].lower() and inst["domeniu"].lower() == inst2["domeniu"].lower()):
+				i = random.randint(0,len(inst2["sinonime"])-1)
+				question_id += 1
+				question = [question_id, inst["domeniu"], 0, "Conceptul " + concept_name + " este identic conceptului de " + str(inst2["sinonime"][i].lower()), "TrueFalse"]	
+				question_id_file.write(str(question))
+				question_id_file.write("\n")
+		
+				#If the question has been created, then add the answer too
+				answer_id += 1
+				answer = [answer_id, question_id, "False", True]
+				answer_id_file.write(str(answer))
+				answer_id_file.write("\n")
+
+				answer_id += 1
+				answer = [answer_id, question_id, "True", False]
+				answer_id_file.write(str(answer))
+				answer_id_file.write("\n")
+
+
+	question_id_file.close()
+	answer_id_file.close()
+
+
+GenerateTrueFalse()
