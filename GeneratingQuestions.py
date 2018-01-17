@@ -216,7 +216,7 @@ def multiple_choice_first_type_of_question(nr_questions):
                     random.shuffle(randoms)
                     question_id = question_id + 1
                     question = [question_id, inst["domeniu"], 0,
-                                "Care dintre urmatoarele variante sunt tipuri de  " + inst["nume"].lower() + "?", 0]
+                                "Care dintre urmatoarele variante sunt tipuri de " + inst["nume"].lower() + "?", 0]
                     bool = True
                     nr_raspunsuri_corecte = 1
                     nr_raspunsuri_totale = 1
@@ -466,8 +466,8 @@ def generate_fill_in_by_synonyms_questions(nr_questions):
 
             # 1 -> Fill in question type
             questions_file.write('[' +
-                str(question_id) + ",  " + str(field_id) + ",  " + str(answer_difficulty) +
-                ",  " + q_statement + ",  " + str(1) + ']\n')
+                str(question_id) + ", " + str(field_id) + ", " + str(answer_difficulty) +
+                ", " + '\'' + q_statement + '\'' + ", " + str(1) + ']\n')
 
             for sinonim in cpt["sinonime"]:
                 answer_id += 1
@@ -588,7 +588,9 @@ def GenerateTrueFalse():
 	answer_id_file.close()
 
 
-GeneratingMatching(30)
-multiple_choice_first_type_of_question(30)
-generate_fill_in_questions(30)
-#GenerateTrueFalse()
+GeneratingMatching(1000)
+multiple_choice_first_type_of_question(1000)
+generate_fill_in_questions(1000)
+GenerateTrueFalse()
+
+print("Done!")
