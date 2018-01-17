@@ -138,7 +138,6 @@ def GeneratingMatching(questions_number):
 
                 answer_id_file.write(str(answer)+ "\n")
                 question_id_file.write(str(question) + "\n")
-            inst['definitie'] = ''
             QUESTIONS_NUMBER -= 1
     #print(subjects)
     #print(properties)
