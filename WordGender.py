@@ -4,7 +4,7 @@ def WordGender(word):
 
 		word = word.lower()
 
-		print(word)
+		#print(word)
 
 		fin_word = word
 		fin_word = fin_word.replace("ă",r"%C4%83")
@@ -51,7 +51,7 @@ def WordGender(word):
 
 
 
-print(WordGender("cutie"))
+'''print(WordGender("cutie"))
 print(WordGender("fibră"))
 print(WordGender("cutiile"))
 print(WordGender("paralel"))
@@ -59,4 +59,4 @@ print(WordGender("spațiu"))
 print(WordGender("sânge"))
 print(WordGender("BĂRBAT"))
 print(WordGender("CUTIa"))
-print(WordGender("asad"))
+print(WordGender("asad"))'''

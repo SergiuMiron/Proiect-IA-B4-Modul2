@@ -19,78 +19,17 @@ properties = json.loads(json_data_proprietati)
 
 def GeneratingMatching(questions_number):
 
-    # O sa avem o lista de dictionare ( 1 dictionar = 1 json / o instanta )
-    print(subjects)
-    print(properties)
-
     question_id = 0
     answer_id = 0
 
     import json
     import sys
 
-    # Assume there is a global "subjects" json list
-
-    # Dificultate bazata pe distanta;
-    # Exemplu: daca nodul dat drept raspuns se afla in prima treime, plecand de la radacina ontologiei, va fi un raspuns usor
-    # Easy: 0-33%
-    # Medium: 33%-66%
-    # Hard: 66%-100%
-
-    # Cauta indexul din json corespunzator id-ului cautat din baza de date
-    def getEntryIndexById (node_id):
-        for index in range(0, len(subjects)):
-            if subjects[index]['id'] == node_id:
-                return index
-        return -1
-
-    # TODO Maybe the DB id should be passed as argument?
-    # Calculeaza inaltimea maxima incepand de la root, care este indexul din fisierul json!
-    def calculateMaxDepth(root):
-        max = 0
-        for node in subjects[root]['noduri_legate']:
-            currentMax = calculateMaxDepth(getEntryIndexById(node))
-            if currentMax > max:
-                max = currentMax
-
-        return max + 1
-    #Example:
-    #print(calculateMaxDepth(getEntryIndexById(100)))
-
-    # TODO Optimise callind getEntryIndex
-    # Calculeaza distanta de la root_node la answer_node_id
-    # !! Deoarece fisierul nostru cu subiecte are mai multe concepte care nu sunt legate intre ele (ca in ontologia finala)
-    # !! Va trebui sa dati ca root_node conceptul in care vreti sa fie calculata distanta
-    def calculateNodeDepth(root_node, answer_node_id, current_depth):
-        if root_node == getEntryIndexById(answer_node_id):
-            return current_depth
-        tmp =0
-        for node in subjects[root_node]['noduri_legate']:
-            tmp+=calculateNodeDepth(getEntryIndexById(node), answer_node_id, current_depth+1)
-        return tmp
-
-    # Exemplu apel: cautam subiectul cu id-ul 500 luand ca radacina a conceptului nodul cu id-ul 100 din fisier
-    #print (calculateNodeDepth(getEntryIndexById(100),500, 0))
-
-    #there should be "road" from the root to any of the nodes
-    # 0 - Easy, 1 - Medium, 2 - Hard
-    # !! Root_id and Node_id is the id from the ontology, not the index in the subjects file !!
-    def diffBasedOnNodeDist(root_id, node_id):
-       maxDepth = calculateMaxDepth(getEntryIndexById(root_id))
-       nodeDepth = calculateNodeDepth(getEntryIndexById(root_id), node_id, 0)
-       difficulty = nodeDepth * 100 / maxDepth;
-       if difficulty < 33.3:
-           return 0
-       elif difficulty > 33.3 and difficulty < 66.6:
-           return 1
-       else: return 2
-
-
     # Create files for testing question_id / answer_id
 
-    question_id_file = open(r'C:\Users\alexa\Desktop\IA\Proiect-IA-B4-Modul2\Matching\questions_synonyms.txt', 'w',
+    question_id_file = open(r'matching_q_synonyms.txt', 'w',
                             encoding="utf8")
-    answer_id_file = open(r'C:\Users\alexa\Desktop\IA\Proiect-IA-B4-Modul2\Matching\answers_synonyms.txt', 'w',
+    answer_id_file = open(r'matching_a_synonyms.txt', 'w',
                           encoding="utf8")
 
     # The number of questions to generate
@@ -100,7 +39,7 @@ def GeneratingMatching(questions_number):
     for inst in subjects:
         if inst["sinonime"] != [] and QUESTIONS_NUMBER > 0:
             question_id = question_id + 1
-            difficultate = diffBasedOnNodeDist(subjects[0]["id"],inst["id"])
+            difficultate = diffBasedOnNodeDepth(subjects[0]["id"],inst["id"],subjects)
             question = [question_id, inst["domeniu"], difficultate, inst["nume"], 3]
             # print(inst["nume"])
 
@@ -125,9 +64,9 @@ def GeneratingMatching(questions_number):
     QUESTIONS_NUMBER = questions_number
 
 
-    question_id_file = open(r'C:\Users\alexa\Desktop\IA\Proiect-IA-B4-Modul2\Matching\questions_properties.txt', 'w',
+    question_id_file = open(r'matching_q_properties.txt', 'w',
                             encoding="utf8")
-    answer_id_file = open(r'C:\Users\alexa\Desktop\IA\Proiect-IA-B4-Modul2\Matching\answers_properties.txt', 'w',
+    answer_id_file = open(r'matching_a_properties.txt', 'w',
                           encoding="utf8")
 
     # Match by properties
@@ -142,7 +81,7 @@ def GeneratingMatching(questions_number):
                 if x != [] and QUESTIONS_NUMBER > 0:
                     x = x[0]
                     question_id = question_id + 1
-                    difficultate = diffBasedOnNodeDist(subjects[0]["id"],x["id"])
+                    difficultate = diffBasedOnNodeDepth(subjects[0]["id"],x["id"],subjects)
                     question = [question_id, x["domeniu"], difficultate, x["nume"], 3]
 
                     answer_id = answer_id + 1
@@ -173,9 +112,9 @@ def GeneratingMatching(questions_number):
     answer_id_file.close()
 
 
-    question_id_file = open(r'C:\Users\alexa\Desktop\IA\Proiect-IA-B4-Modul2\Matching\questions_definition.txt', 'w',
+    question_id_file = open(r'matching_q_definition.txt', 'w',
                             encoding="utf8")
-    answer_id_file = open(r'C:\Users\alexa\Desktop\IA\Proiect-IA-B4-Modul2\Matching\answers_definition.txt', 'w',
+    answer_id_file = open(r'matching_a_definition.txt', 'w',
                           encoding="utf8")
 
     QUESTIONS_NUMBER = questions_number
@@ -193,8 +132,8 @@ def GeneratingMatching(questions_number):
                 answer_id_file.write(str(answer)+ "\n")
             else:
                 question_id += 1
-                difficultate = diffBasedOnNodeDist(subjects[0]["id"],inst["id"])
-                question = [question_id, inst["domeniu"],difficultate,inst["nume"],"SingleMathch"]
+                difficultate = diffBasedOnNodeDepth(subjects[0]["id"],inst["id"],subjects)
+                question = [question_id, inst["domeniu"],difficultate,inst["nume"],3]
                 questions_definitions.append(question)
                 answer = [answer_id,question_id,inst["definitie"],1]
                 answers_definitions.append(answer)
@@ -203,10 +142,9 @@ def GeneratingMatching(questions_number):
                 question_id_file.write(str(question) + "\n")
             inst['definitie'] = ''
             QUESTIONS_NUMBER -= 1
-    print(subjects)
-    print(properties)
+    #print(subjects)
+    #print(properties)
 
-GeneratingMatching(30)
 
 def multiple_choice_first_type_of_question(nr_questions):
     try:
@@ -214,8 +152,8 @@ def multiple_choice_first_type_of_question(nr_questions):
         nr_questions = min(int(nr_questions), len(subjects))
         #random.shuffle(subjects)
 
-        answer_id_file =  open(r'C:\Users\Sergiu\Desktop\answers_vm.txt','w', encoding = "utf-8-sig")
-        question_id_file = open(r'C:\Users\Sergiu\Desktop\questions_vm.txt','w', encoding = "utf-8-sig")
+        answer_id_file =  open(r'answers_vm.txt','w', encoding = "utf-8-sig")
+        question_id_file = open(r'questions_vm.txt','w', encoding = "utf-8-sig")
         answer_id = 0
         question_id = 0
 
@@ -383,8 +321,6 @@ def multiple_choice_first_type_of_question(nr_questions):
         print("Wrong data type for nr of questions")
     except Exception as e:
         print(e)
-
-multiple_choice_first_type_of_question(30)
 
 
 # FILL IN QUESTIONS
@@ -568,9 +504,6 @@ def generate_fill_in_questions(syns_questions, defs_questions):
     generate_fill_in_by_synonyms_questions(syns_questions)
     generate_fill_in_by_definitions_questions(defs_questions)
 
-generate_fill_in_questions(10, 30)
-
-
 
 def GenerateTrueFalse():
 	question_id = 0
@@ -666,4 +599,7 @@ def GenerateTrueFalse():
 	answer_id_file.close()
 
 
-GenerateTrueFalse()
+GeneratingMatching(30)
+multiple_choice_first_type_of_question(30)
+generate_fill_in_questions(10, 30)
+#GenerateTrueFalse()
