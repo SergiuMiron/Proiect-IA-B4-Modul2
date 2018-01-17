@@ -262,6 +262,7 @@ def multiple_choice_first_type_of_question(nr_questions):
                 bool = True
                 nr_raspunsuri_corecte = 0
                 nr_raspunsuri_totale = 0
+                wasitbefore = dict()
                 if nr_raspunsuri_corecte < 1:
                     bool = True
                     dificultate = Difficulty.diffBasedOnNodeDepth(subjects[0]["id"],inst["id"], subjects)
@@ -276,6 +277,12 @@ def multiple_choice_first_type_of_question(nr_questions):
                     bool = False
                     x = [i for i in subjects if i["definitie"] != inst["definitie"] and i["definitie"] != ""]
                     random.shuffle(x)
+                    while (1):
+                        if x[0]["definitie"] in wasitbefore.keys():
+                            random.shuffle(x)
+                        else:
+                            break
+                    wasitbefore[x[0]["definitie"]] = 1
                     x = x[0]
                     nr_raspunsuri_totale = nr_raspunsuri_totale + 1
                     answer_id = answer_id + 1
@@ -478,9 +485,13 @@ def generate_fill_in_by_synonyms_questions(nr_questions):
     fields_file.close()
 
 
-def generate_fill_in_questions(syns_questions, defs_questions):
-    generate_fill_in_by_synonyms_questions(syns_questions)
-    generate_fill_in_by_definitions_questions(defs_questions)
+def generate_fill_in_questions(nr_of_questions):
+    if nr_of_questions % 2 == 0:
+        generate_fill_in_by_synonyms_questions(nr_of_questions/2)
+        generate_fill_in_by_definitions_questions(nr_of_questions/2)
+    else:
+        generate_fill_in_by_synonyms_questions(nr_of_questions // 2)
+        generate_fill_in_by_definitions_questions(nr_of_questions // 2 +1)
 
 
 def GenerateTrueFalse():
@@ -579,5 +590,5 @@ def GenerateTrueFalse():
 
 GeneratingMatching(30)
 multiple_choice_first_type_of_question(30)
-generate_fill_in_questions(10, 30)
+generate_fill_in_questions(30)
 #GenerateTrueFalse()
