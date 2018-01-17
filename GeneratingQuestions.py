@@ -478,9 +478,13 @@ def generate_fill_in_by_synonyms_questions(nr_questions):
     fields_file.close()
 
 
-def generate_fill_in_questions(syns_questions, defs_questions):
-    generate_fill_in_by_synonyms_questions(syns_questions)
-    generate_fill_in_by_definitions_questions(defs_questions)
+def generate_fill_in_questions(nr_of_questions):
+    if nr_of_questions % 2 == 0:
+        generate_fill_in_by_synonyms_questions(nr_of_questions/2)
+        generate_fill_in_by_definitions_questions(nr_of_questions/2)
+    else:
+        generate_fill_in_by_synonyms_questions(nr_of_questions // 2)
+        generate_fill_in_by_definitions_questions(nr_of_questions // 2 +1)
 
 
 def GenerateTrueFalse():
@@ -579,5 +583,5 @@ def GenerateTrueFalse():
 
 GeneratingMatching(30)
 multiple_choice_first_type_of_question(30)
-generate_fill_in_questions(10, 30)
+generate_fill_in_questions(30)
 #GenerateTrueFalse()
