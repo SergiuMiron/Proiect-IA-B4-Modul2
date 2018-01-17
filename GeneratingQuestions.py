@@ -54,7 +54,6 @@ def GeneratingMatching(questions_number):
                 answer_id_file.write(str(answer))
                 answer_id_file.write("\n")
 
-            subjects.remove(inst)
             QUESTIONS_NUMBER -= 1
             # print("\n\n\n")
 
@@ -91,7 +90,6 @@ def GeneratingMatching(questions_number):
                     answers_properties.append(answer)
 
                     QUESTIONS_NUMBER -= 1
-                    inst["id_sub"].remove(id_subiect)
 
     #remove duplicate questions
     for i in questions_properties:
