@@ -17,114 +17,196 @@ with open('fisier2_proprietati.txt', 'r', encoding="utf-8-sig") as data_file:
 subjects = json.loads(json_data_subiecte)
 properties = json.loads(json_data_proprietati)
 
-def GeneratingMatching():
-	question_id = 0
-	answer_id = 0
-	question_id_file = open('matching_q_synonyms.txt', 'w',
-                        encoding="utf8")
-	answer_id_file = open('matching_a_synonyms.txt', 'w',
-                      encoding="utf8")
-	# Match by synonyms
-	for inst in subjects:
-	    if inst["sinonime"] != []:
-	        question_id = question_id + 1
-	        difficultate = diffBasedOnNodeDepth(subjects[0]["id"],inst["id"],subjects)
-	        question = [question_id, inst["domeniu"], difficultate, inst["nume"], "SingleMatch"]
-	        # print(inst["nume"])
+def GeneratingMatching(questions_number):
 
-	        question_id_file.write(str(question))
-	        question_id_file.write("\n")
-	        x = inst["sinonime"]
-	        # print(x)
+    # O sa avem o lista de dictionare ( 1 dictionar = 1 json / o instanta )
+    print(subjects)
+    print(properties)
 
-	        for sinonim in x:
-	            answer_id = answer_id + 1;
-	            answer = [answer_id, question_id, sinonim, "True"]
-	            answer_id_file.write(str(answer))
-	            answer_id_file.write("\n")
+    question_id = 0
+    answer_id = 0
 
+    import json
+    import sys
 
-	        # print("\n\n\n")
+    # Assume there is a global "subjects" json list
 
-	question_id_file.close()
-	answer_id_file.close()
+    # Dificultate bazata pe distanta;
+    # Exemplu: daca nodul dat drept raspuns se afla in prima treime, plecand de la radacina ontologiei, va fi un raspuns usor
+    # Easy: 0-33%
+    # Medium: 33%-66%
+    # Hard: 66%-100%
 
+    # Cauta indexul din json corespunzator id-ului cautat din baza de date
+    def getEntryIndexById (node_id):
+        for index in range(0, len(subjects)):
+            if subjects[index]['id'] == node_id:
+                return index
+        return -1
 
-	question_id_file = open('matching_q_properties.txt', 'w',
-	                        encoding="utf8")
-	answer_id_file = open('matching_a_properties.txt', 'w',
-	                      encoding="utf8")
+    # TODO Maybe the DB id should be passed as argument?
+    # Calculeaza inaltimea maxima incepand de la root, care este indexul din fisierul json!
+    def calculateMaxDepth(root):
+        max = 0
+        for node in subjects[root]['noduri_legate']:
+            currentMax = calculateMaxDepth(getEntryIndexById(node))
+            if currentMax > max:
+                max = currentMax
 
-	# Match by properties
-	questions_properties = []
-	answers_properties = []
-	for inst in properties:
-	    if inst["id_sub"] != []:
-	        #print (inst["id_sub"])
-	        for id_subiect in inst["id_sub"]:
-	            #print(id_subiect)
-	            x = [i for i in subjects if i["id"] == id_subiect]
-	            if x != []:
-	                x = x[0]
-	                question_id = question_id + 1
-	                difficultate = diffBasedOnNodeDepth(subjects[0]["id"],x["id"],subjects)
-	                question = [question_id, x["domeniu"], difficultate, x["nume"], "SingleMatch"]
+        return max + 1
+    #Example:
+    #print(calculateMaxDepth(getEntryIndexById(100)))
 
-	                answer_id = answer_id + 1
-	                answer = [answer_id, question_id, inst["nume"], "True"]
+    # TODO Optimise callind getEntryIndex
+    # Calculeaza distanta de la root_node la answer_node_id
+    # !! Deoarece fisierul nostru cu subiecte are mai multe concepte care nu sunt legate intre ele (ca in ontologia finala)
+    # !! Va trebui sa dati ca root_node conceptul in care vreti sa fie calculata distanta
+    def calculateNodeDepth(root_node, answer_node_id, current_depth):
+        if root_node == getEntryIndexById(answer_node_id):
+            return current_depth
+        tmp =0
+        for node in subjects[root_node]['noduri_legate']:
+            tmp+=calculateNodeDepth(getEntryIndexById(node), answer_node_id, current_depth+1)
+        return tmp
 
-	                questions_properties.append(question)
-	                answers_properties.append(answer)
+    # Exemplu apel: cautam subiectul cu id-ul 500 luand ca radacina a conceptului nodul cu id-ul 100 din fisier
+    #print (calculateNodeDepth(getEntryIndexById(100),500, 0))
 
-	#remove duplicate questions
-	for i in questions_properties:
-	    dup = [j for j in questions_properties if i[3] == j[3] and i[1] == j[1] and i[0] != j[0]]
-	    for k in dup:
-	        answer = [x for x in answers_properties if k[0] == x[1]]
-	        answer[0][1] = i[0]
-	    for k in dup:
-	        questions_properties.remove(k)
-
-	#write to file
-	for i in questions_properties:
-	    question_id_file.write(str(i) + "\n")
-	for i in answers_properties:
-	    answer_id_file.write(str(i) + "\n")
-
-	question_id_file.close()
-	answer_id_file.close()
+    #there should be "road" from the root to any of the nodes
+    # 0 - Easy, 1 - Medium, 2 - Hard
+    # !! Root_id and Node_id is the id from the ontology, not the index in the subjects file !!
+    def diffBasedOnNodeDist(root_id, node_id):
+       maxDepth = calculateMaxDepth(getEntryIndexById(root_id))
+       nodeDepth = calculateNodeDepth(getEntryIndexById(root_id), node_id, 0)
+       difficulty = nodeDepth * 100 / maxDepth;
+       if difficulty < 33.3:
+           return 0
+       elif difficulty > 33.3 and difficulty < 66.6:
+           return 1
+       else: return 2
 
 
-	question_id_file = open('matching_q_definition.txt', 'w',
-	                        encoding="utf8")
-	answer_id_file = open('matching_a_definition.txt', 'w',
-	                      encoding="utf8")
+    # Create files for testing question_id / answer_id
+
+    question_id_file = open(r'C:\Users\alexa\Desktop\IA\Proiect-IA-B4-Modul2\Matching\questions_synonyms.txt', 'w',
+                            encoding="utf8")
+    answer_id_file = open(r'C:\Users\alexa\Desktop\IA\Proiect-IA-B4-Modul2\Matching\answers_synonyms.txt', 'w',
+                          encoding="utf8")
+
+    # The number of questions to generate
+    QUESTIONS_NUMBER = questions_number
+
+    # Match by synonyms
+    for inst in subjects:
+        if inst["sinonime"] != [] and QUESTIONS_NUMBER > 0:
+            question_id = question_id + 1
+            difficultate = diffBasedOnNodeDist(subjects[0]["id"],inst["id"])
+            question = [question_id, inst["domeniu"], difficultate, inst["nume"], 3]
+            # print(inst["nume"])
+
+            question_id_file.write(str(question))
+            question_id_file.write("\n")
+            x = inst["sinonime"]
+            # print(x)
+
+            for sinonim in x:
+                answer_id = answer_id + 1
+                answer = [answer_id, question_id, sinonim, "True"]
+                answer_id_file.write(str(answer))
+                answer_id_file.write("\n")
+
+            subjects.remove(inst)
+            QUESTIONS_NUMBER -= 1
+            # print("\n\n\n")
+
+    question_id_file.close()
+    answer_id_file.close()
+
+    QUESTIONS_NUMBER = questions_number
 
 
-	answers_definitions = []
-	questions_definitions = []
+    question_id_file = open(r'C:\Users\alexa\Desktop\IA\Proiect-IA-B4-Modul2\Matching\questions_properties.txt', 'w',
+                            encoding="utf8")
+    answer_id_file = open(r'C:\Users\alexa\Desktop\IA\Proiect-IA-B4-Modul2\Matching\answers_properties.txt', 'w',
+                          encoding="utf8")
 
-	# Match by splitting the definitions of a subject - TODO
-	for inst in subjects:
-	    if inst["definitie"] != "":
-	        question = [i for i in questions_properties if i[1] == inst["domeniu"] and i[3] == inst["nume"]]
-	        answer_id += 1
-	        if question != []:
-	            answer = [answer_id, question[0][0],inst["definitie"],1]
-	            answers_definitions.append(answer)
-	            answer_id_file.write(str(answer)+ "\n")
-	        else:
-	            question_id += 1
-	            difficultate = diffBasedOnNodeDepth(subjects[0]["id"],inst["id"],subjects)
-	            question = [question_id, inst["domeniu"],difficultate,inst["nume"],"SingleMatch"]
-	            questions_definitions.append(question)
-	            answer = [answer_id,question_id,inst["definitie"],1]
-	            answers_definitions.append(answer)
+    # Match by properties
+    questions_properties = []
+    answers_properties = []
+    for inst in properties:
+        if inst["id_sub"] != []:
+            #print (inst["id_sub"])
+            for id_subiect in inst["id_sub"]:
+                #print(id_subiect)
+                x = [i for i in subjects if i["id"] == id_subiect]
+                if x != [] and QUESTIONS_NUMBER > 0:
+                    x = x[0]
+                    question_id = question_id + 1
+                    difficultate = diffBasedOnNodeDist(subjects[0]["id"],x["id"])
+                    question = [question_id, x["domeniu"], difficultate, x["nume"], 3]
 
-	            answer_id_file.write(str(answer)+ "\n")
-	            question_id_file.write(str(question) + "\n")
+                    answer_id = answer_id + 1
+                    answer = [answer_id, question_id, inst["nume"], "True"]
 
-GeneratingMatching()
+                    questions_properties.append(question)
+                    answers_properties.append(answer)
+
+                    QUESTIONS_NUMBER -= 1
+                    inst["id_sub"].remove(id_subiect)
+
+    #remove duplicate questions
+    for i in questions_properties:
+        dup = [j for j in questions_properties if i[3] == j[3] and i[1] == j[1] and i[0] != j[0]]
+        for k in dup:
+            answer = [x for x in answers_properties if k[0] == x[1]]
+            answer[0][1] = i[0]
+        for k in dup:
+            questions_properties.remove(k)
+
+    #write to file
+    for i in questions_properties:
+        question_id_file.write(str(i) + "\n")
+    for i in answers_properties:
+        answer_id_file.write(str(i) + "\n")
+
+    question_id_file.close()
+    answer_id_file.close()
+
+
+    question_id_file = open(r'C:\Users\alexa\Desktop\IA\Proiect-IA-B4-Modul2\Matching\questions_definition.txt', 'w',
+                            encoding="utf8")
+    answer_id_file = open(r'C:\Users\alexa\Desktop\IA\Proiect-IA-B4-Modul2\Matching\answers_definition.txt', 'w',
+                          encoding="utf8")
+
+    QUESTIONS_NUMBER = questions_number
+
+    answers_definitions = []
+    questions_definitions = []
+    # Match by splitting the definitions of a subject - TODO
+    for inst in subjects:
+        if inst["definitie"] != "" and QUESTIONS_NUMBER >0:
+            question = [i for i in questions_properties if i[1] == inst["domeniu"] and i[3] == inst["nume"]]
+            answer_id += 1
+            if question != []:
+                answer = [answer_id, question[0][0],inst["definitie"],1]
+                answers_definitions.append(answer)
+                answer_id_file.write(str(answer)+ "\n")
+            else:
+                question_id += 1
+                difficultate = diffBasedOnNodeDist(subjects[0]["id"],inst["id"])
+                question = [question_id, inst["domeniu"],difficultate,inst["nume"],"SingleMathch"]
+                questions_definitions.append(question)
+                answer = [answer_id,question_id,inst["definitie"],1]
+                answers_definitions.append(answer)
+
+                answer_id_file.write(str(answer)+ "\n")
+                question_id_file.write(str(question) + "\n")
+            inst['definitie'] = ''
+            QUESTIONS_NUMBER -= 1
+    print(subjects)
+    print(properties)
+
+GeneratingMatching(30)
 
 def multiple_choice_first_type_of_question(nr_questions):
     try:
