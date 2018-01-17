@@ -5,7 +5,7 @@
 
 def ArticulateWord(word):
 
-	print("Before art:",word)
+	#print("Before art:",word)
 
 	try:
 
@@ -108,7 +108,7 @@ def ArticulateWord(word):
 		return "Error"
 
 
-print(ArticulateWord("cutie"))
+'''print(ArticulateWord("cutie"))
 print(ArticulateWord("fibră"))
 print(ArticulateWord("cutiile"))
 print(ArticulateWord("paralel"))
@@ -116,4 +116,4 @@ print(ArticulateWord("spațiu"))
 print(ArticulateWord("sânge"))
 print(ArticulateWord("BĂRBAT"))
 print(ArticulateWord("CUTIa"))
-print(ArticulateWord("asad"))
+print(ArticulateWord("asad"))'''
