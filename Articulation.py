@@ -36,7 +36,7 @@ def ArticulateWord(word):
 
 		newstr2 = newstr[:x]
 
-		newstr2 = newstr2.replace("<span class=\"accented\">","")
+		newstr2 = newstr2.replace("<span class=\"tonic-accent\">","")
 		newstr2 = newstr2.replace("</span>","")
 		newstr2 = newstr2.replace("<tr>","")
 		newstr2 = newstr2.replace("<td>","")
