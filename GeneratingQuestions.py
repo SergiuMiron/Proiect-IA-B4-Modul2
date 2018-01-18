@@ -494,47 +494,84 @@ def generate_fill_in_questions(nr_of_questions):
         generate_fill_in_by_definitions_questions(nr_of_questions // 2 +1)
 
 
-def GenerateTrueFalse():
+def GenerateTrueFalse(number_of_questions):
+
+	QUESTIONS_NUMBER = number_of_questions
 	question_id = 0
 	answer_id = 0
 
 	question_id_file = open("questions_tf.txt","w", encoding = "utf-8-sig")
 	answer_id_file =  open("answers_tf.txt","w", encoding = "utf-8-sig")
 
-	#Questions of type one
-	#The field "definitie" is used for every instance, thus every answer will have to be "Adevarat" of type True
+	#0 - easy, 1 - medium, 2 - hard
+	#Type Values: 2 - TrueOrFalse
+
+	#Question Type One
 	#Marked as Easy
 
-	bool = True
+	concepts = [] #retin toate conceptele care nu apar si in definitia aferenta
 	random.shuffle(subjects)
 	for inst in subjects:
-
 		concept_name = str(inst["nume"].lower())
-		if inst["definitie"] != "":
-		
-			#If there are more words in the concept, articulate the first word
-			if " " in inst["nume"]:
+		definition = inst["definitie"].lower()
+		if definition != "":
+			#Daca am un singur cuvant in concept, in definitie el poate aparea articulat si in concept nu
+			if " " not in concept_name:
+				if ArticulateWord(concept_name) not in definition or concept_name not in definition:
+					concepts.append(concept_name)
+			else:
 				space_index = concept_name.index(" ")
 				first_word = concept_name[0:space_index]
-				if Articulation.ArticulateWord(first_word) is not None and Articulation.ArticulateWord(first_word) != "Eroare":
-					rest = concept_name[space_index:] #the  other words in the concept
+				rest = concept_name[space_index:]
+				if ArticulateWord(first_word) + rest not in definition or concept_name not in definition:
+					concepts.append(ArticulateWord(first_word) + rest)
+
+	random.shuffle(subjects)
+	for inst in subjects:
+		bool = True #se modifica in functie de validitatea intrebarii
+		concept_name = str(inst["nume"].lower())
+		definition = inst["definitie"].lower()
+		
+		if definition != "" and QUESTIONS_NUMBER > 0:
+
+			#Daca sunt mai multe cuvinte in concept, articulez primul cuvant
+			if " " in concept_name:
+				space_index = concept_name.index(" ")
+				first_word = concept_name[0:space_index]
+				rest = concept_name[space_index:] #the  other words in the concept
+				
+				#Daca nu apare conceptul in definitie, creez o intrebare Falsa
+				if ArticulateWord(first_word) + rest in concepts or concept_name in concepts:
+					bool = False
 					question_id += 1
-					question = [question_id, inst["domeniu"], 0, "Urmatoarea definitie despre " + Articulation.ArticulateWord(first_word) + rest + " este adevarata sau falsa?   " + inst["definitie"],  "TrueFalse"]	
+					question = [question_id, inst["domeniu"], 0, "Urmatoarea definitie despre " + random.choice(concepts) + " este adevarata sau falsa?   " + inst["definitie"], 2]	
+					question_id_file.write(str(question))
+					question_id_file.write("\n")
+				else:
+					question_id += 1
+					question = [question_id, inst["domeniu"], 0, "Urmatoarea definitie despre " + ArticulateWord(first_word) + rest + " este adevarata sau falsa?   " + inst["definitie"], 2]	
+					question_id_file.write(str(question))
+					question_id_file.write("\n")
+			
+			#Conceptul este un singur cuvant
+			elif ArticulateWord(concept_name) in concepts or concept_name in concepts:
+					bool = False
+					question_id += 1
+					question = [question_id, inst["domeniu"], 0, "Urmatoarea definitie despre " + random.choice(concepts) + " este adevarata sau falsa?   " + inst["definitie"], 2]	
 					question_id_file.write(str(question))
 					question_id_file.write("\n")
 			else:
-				question_id += 1
-				question = [question_id, inst["domeniu"], 0, "Urmatoarea definitie despre " + concept_name + " este adevarata sau falsa?   " + inst["definitie"],  "TrueFalse"]	
-				question_id_file.write(str(question))
-				question_id_file.write("\n")
+					question_id += 1
+					question = [question_id, inst["domeniu"], 0, "Urmatoarea definitie despre " + concept_name + " este adevarata sau falsa?   " + inst["definitie"], 2]	
+					question_id_file.write(str(question))
+					question_id_file.write("\n")
 			
-			#If the question has been created, then add the answer too
-			if answer_id < question_id:
-				answer_id += 1
-				answer = [answer_id, question_id, "True", bool]
-				answer_id_file.write(str(answer))
-				answer_id_file.write("\n")
-
+			
+			answer_id += 1
+			correct_answer = [answer_id, question_id, "True", bool] 
+			answer_id_file.write(str(correct_answer))	
+			answer_id_file.write("\n")
+			QUESTIONS_NUMBER -= 1
 
 	#Second type of question
 
