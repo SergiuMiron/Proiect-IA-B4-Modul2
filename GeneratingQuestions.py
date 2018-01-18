@@ -496,7 +496,18 @@ def generate_fill_in_questions(nr_of_questions):
 
 def GenerateTrueFalse(number_of_questions):
 
-	QUESTIONS_NUMBER = number_of_questions
+	if(number_of_questions != 0):
+		QUESTIONS_NUMBER_DEF = number_of_questions//2
+	else:
+		QUESTIONS_NUMBER_DEF = 0
+	QUESTIONS_NUMBER_SIN = number_of_questions - QUESTIONS_NUMBER_DEF
+
+	if(QUESTIONS_NUMBER_SIN != 0):
+		QUESTIONS_NUMBER_SIN_TRUE = QUESTIONS_NUMBER_SIN//2
+	else:
+		QUESTIONS_NUMBER_SIN_TRUE = 0
+	QUESTIONS_NUMBER_SIN_FALSE = QUESTIONS_NUMBER_SIN - QUESTIONS_NUMBER_SIN_TRUE
+	
 	question_id = 0
 	answer_id = 0
 
@@ -517,14 +528,14 @@ def GenerateTrueFalse(number_of_questions):
 		if definition != "":
 			#Daca am un singur cuvant in concept, in definitie el poate aparea articulat si in concept nu
 			if " " not in concept_name:
-				if ArticulateWord(concept_name) not in definition or concept_name not in definition:
+				if Articulation.ArticulateWord(concept_name) not in definition or concept_name not in definition:
 					concepts.append(concept_name)
 			else:
 				space_index = concept_name.index(" ")
 				first_word = concept_name[0:space_index]
 				rest = concept_name[space_index:]
-				if ArticulateWord(first_word) + rest not in definition or concept_name not in definition:
-					concepts.append(ArticulateWord(first_word) + rest)
+				if Articulation.ArticulateWord(first_word) + rest not in definition or concept_name not in definition:
+					concepts.append(Articulation.ArticulateWord(first_word) + rest)
 
 	random.shuffle(subjects)
 	for inst in subjects:
@@ -532,7 +543,7 @@ def GenerateTrueFalse(number_of_questions):
 		concept_name = str(inst["nume"].lower())
 		definition = inst["definitie"].lower()
 		
-		if definition != "" and QUESTIONS_NUMBER > 0:
+		if definition != "" and QUESTIONS_NUMBER_DEF > 0:
 
 			#Daca sunt mai multe cuvinte in concept, articulez primul cuvant
 			if " " in concept_name:
@@ -541,7 +552,7 @@ def GenerateTrueFalse(number_of_questions):
 				rest = concept_name[space_index:] #the  other words in the concept
 				
 				#Daca nu apare conceptul in definitie, creez o intrebare Falsa
-				if ArticulateWord(first_word) + rest in concepts or concept_name in concepts:
+				if Articulation.ArticulateWord(first_word) + rest in concepts or concept_name in concepts:
 					bool = False
 					question_id += 1
 					question = [question_id, inst["domeniu"], 0, "Urmatoarea definitie despre " + random.choice(concepts) + " este adevarata sau falsa?   " + inst["definitie"], 2]	
@@ -549,12 +560,12 @@ def GenerateTrueFalse(number_of_questions):
 					question_id_file.write("\n")
 				else:
 					question_id += 1
-					question = [question_id, inst["domeniu"], 0, "Urmatoarea definitie despre " + ArticulateWord(first_word) + rest + " este adevarata sau falsa?   " + inst["definitie"], 2]	
+					question = [question_id, inst["domeniu"], 0, "Urmatoarea definitie despre " + Articulation.ArticulateWord(first_word) + rest + " este adevarata sau falsa?   " + inst["definitie"], 2]	
 					question_id_file.write(str(question))
 					question_id_file.write("\n")
 			
 			#Conceptul este un singur cuvant
-			elif ArticulateWord(concept_name) in concepts or concept_name in concepts:
+			elif Articulation.ArticulateWord(concept_name) in concepts or concept_name in concepts:
 					bool = False
 					question_id += 1
 					question = [question_id, inst["domeniu"], 0, "Urmatoarea definitie despre " + random.choice(concepts) + " este adevarata sau falsa?   " + inst["definitie"], 2]	
@@ -571,7 +582,16 @@ def GenerateTrueFalse(number_of_questions):
 			correct_answer = [answer_id, question_id, "True", bool] 
 			answer_id_file.write(str(correct_answer))	
 			answer_id_file.write("\n")
-			QUESTIONS_NUMBER -= 1
+			
+			if(bool == True):
+				bool_aux = False
+			else:
+				bool_aux = True
+			answer_id += 1
+			wrong_answer = [answer_id, question_id, "False", bool_aux] 
+			answer_id_file.write(str(wrong_answer))	
+			answer_id_file.write("\n")
+			QUESTIONS_NUMBER_DEF -= 1
 
 	#Second type of question
 
@@ -579,10 +599,11 @@ def GenerateTrueFalse(number_of_questions):
 	for inst in subjects:
 
 		concept_name = str(inst["nume"].lower())
-		if len(inst["sinonime"]) > 0:
+		if len(inst["sinonime"]) > 0 and QUESTIONS_NUMBER_SIN_TRUE>0: 
 			for i in range(0,len(inst["sinonime"])):
 				question_id += 1
-				question = [question_id, inst["domeniu"], 0, "Conceptul " + concept_name + " este identic conceptului de " + str(inst["sinonime"][i].lower()), "TrueFalse"]	
+				QUESTIONS_NUMBER_SIN_TRUE -= 1
+				question = [question_id, inst["domeniu"], 0, "Conceptul " + concept_name + " este identic conceptului de " + str(inst["sinonime"][i].lower()), 2]	
 				question_id_file.write(str(question))
 				question_id_file.write("\n")
 			
@@ -602,10 +623,11 @@ def GenerateTrueFalse(number_of_questions):
 
 		for inst2 in subjects:
 
-			if (len(inst2["sinonime"]) > 0 and inst["nume"].lower()!=inst2["nume"].lower() and inst["domeniu"].lower() == inst2["domeniu"].lower()):
+			if (QUESTIONS_NUMBER_SIN_FALSE>0 and len(inst2["sinonime"]) > 0 and inst["nume"].lower()!=inst2["nume"].lower() and inst["domeniu"].lower() == inst2["domeniu"].lower()):
 				i = random.randint(0,len(inst2["sinonime"])-1)
 				question_id += 1
-				question = [question_id, inst["domeniu"], 0, "Conceptul " + concept_name + " este identic conceptului de " + str(inst2["sinonime"][i].lower()), "TrueFalse"]	
+				QUESTIONS_NUMBER_SIN_FALSE -= 1
+				question = [question_id, inst["domeniu"], 0, "Conceptul " + concept_name + " este identic conceptului de " + str(inst2["sinonime"][i].lower()), 2]	
 				question_id_file.write(str(question))
 				question_id_file.write("\n")
 		
@@ -625,9 +647,9 @@ def GenerateTrueFalse(number_of_questions):
 	answer_id_file.close()
 
 
-GeneratingMatching(1000)
-multiple_choice_first_type_of_question(1000)
-generate_fill_in_questions(1000)
-GenerateTrueFalse()
+GeneratingMatching(10)
+multiple_choice_first_type_of_question(10)
+generate_fill_in_questions(10)
+GenerateTrueFalse(10)
 
 print("Done!")
